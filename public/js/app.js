@@ -408,8 +408,14 @@
   });
 
   if (pre !== E.DEFAULT_PRESET) setWeightsOpen(true);
-  render();
-  document.documentElement.classList.add('ready');
+
+  /* Primeira pintura em duas etapas: campo e card primeiro, listas longas logo depois,
+     para não travar o celular numa tarefa única. */
+  calc(); renderControls(); renderBoard(); announceChanges(); renderCard(); writeHash();
+  setTimeout(function () {
+    renderRank(); renderLeagues();
+    document.documentElement.classList.add('ready');
+  }, 0);
 
   if ('serviceWorker' in navigator && location.protocol === 'https:') {
     navigator.serviceWorker.register('/sw.js').catch(function () {});

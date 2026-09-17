@@ -11,10 +11,16 @@ const PRECACHE = [
   '/icon-512.png',
   '/favicon-32.png',
   '/apple-touch-icon.png',
-  '/fonts/archivo-latin.woff2',
-  '/fonts/archivo-latin-ext.woff2',
-  '/fonts/big-shoulders-latin.woff2',
-  '/fonts/big-shoulders-latin-ext.woff2'
+  '/fonts/archivo-400-latin-ext.woff2',
+  '/fonts/archivo-400-latin.woff2',
+  '/fonts/archivo-500-latin-ext.woff2',
+  '/fonts/archivo-500-latin.woff2',
+  '/fonts/archivo-600-latin-ext.woff2',
+  '/fonts/archivo-600-latin.woff2',
+  '/fonts/big-shoulders-700-latin-ext.woff2',
+  '/fonts/big-shoulders-700-latin.woff2',
+  '/fonts/big-shoulders-800-latin-ext.woff2',
+  '/fonts/big-shoulders-800-latin.woff2'
 ];
 
 self.addEventListener('install', event => {

@@ -107,6 +107,15 @@ Depois de editar:
 2. Se o time padrão mudou, atualize os nomes e pontos em `make_assets.py` e regere as imagens.
 3. Atualize a data em "Dados atualizados em" no rodapé, no `sitemap.xml` e no `dateModified` do `index.html`.
 
+## Regerar as fontes
+
+As fontes são versões estáticas das variáveis do Google Fonts, porque diagramam bem mais rápido no celular.
+
+```bash
+pip install fonttools brotli
+python scripts/make_fonts.py
+```
+
 ## Regerar as imagens
 
 ```bash

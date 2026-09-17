@@ -163,6 +163,9 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 .kbd{position:absolute;right:10px;top:11px;font:600 12px/1 Archivo,"Archivo Fallback",sans-serif;color:var(--texto-3);border:1px solid var(--borda);border-radius:5px;padding:4px 6px}
 @media (hover:none){.kbd{display:none}}
 .list{list-style:none;margin:6px 0 0;padding:0}
+/* Em rede lenta a página aparece antes do JavaScript montar a lista. Reservar a altura dos
+   20 primeiros jogadores (20 linhas de 83px) evita que tudo abaixo pule quando a lista chega. */
+#rank:empty{display:block;min-height:1660px}
 .rk,.lgr{display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--linha);padding:12px 0}
 .rk{cursor:pointer;border-radius:0}
 @media (hover:hover){.rk:hover .rname{color:var(--link)}}

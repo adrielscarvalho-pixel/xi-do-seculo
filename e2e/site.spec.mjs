@@ -160,8 +160,15 @@ for (const colorScheme of ['light', 'dark']) test(`acessibilidade (${colorScheme
   expect(dialogScan.violations.map(v => `${v.id}: ${v.nodes.length}`)).toEqual([]);
 });
 
-test('carregamento não move o layout (CLS abaixo de 0,05)', async ({ page, isMobile }) => {
+test('carregamento não move o layout, mesmo com o JavaScript atrasado (CLS abaixo de 0,05)', async ({ page, isMobile }) => {
   test.skip(isMobile);
+  // Mesma janela que o Lighthouse usa no desktop: nela a seção de ligas aparece na tela.
+  await page.setViewportSize({ width: 1350, height: 940 });
+  // Em rede lenta a página pinta antes de o JavaScript chegar, que é quando o layout costuma pular.
+  await page.route('**/js/app.js*', async route => {
+    await new Promise(r => setTimeout(r, 700));
+    await route.continue();
+  });
   await page.addInitScript(() => {
     window.__cls = 0;
     new PerformanceObserver(list => {
@@ -170,6 +177,6 @@ test('carregamento não move o layout (CLS abaixo de 0,05)', async ({ page, isMo
   });
   await page.goto('/');
   await expect(page.locator('#lg-rank > li')).toHaveCount(5);
-  await page.waitForTimeout(500);
+  await page.waitForTimeout(600);
   expect(await page.evaluate(() => window.__cls)).toBeLessThan(0.05);
 });

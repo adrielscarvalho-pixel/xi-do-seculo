@@ -409,11 +409,12 @@
 
   if (pre !== E.DEFAULT_PRESET) setWeightsOpen(true);
 
-  /* Primeira pintura em duas etapas: campo e card primeiro, listas longas logo depois,
-     para não travar o celular numa tarefa única. */
-  calc(); renderControls(); renderBoard(); announceChanges(); renderCard(); writeHash();
+  /* Primeira pintura em duas etapas para não travar o celular numa tarefa única.
+     O ranking entra já na primeira, porque aparece na tela do desktop e empurraria o que vem abaixo.
+     As ligas ficam sempre abaixo do ranking, então podem vir depois sem mover nada visível. */
+  calc(); renderControls(); renderBoard(); announceChanges(); renderCard(); renderRank(); writeHash();
   setTimeout(function () {
-    renderRank(); renderLeagues();
+    renderLeagues();
     document.documentElement.classList.add('ready');
   }, 0);
 

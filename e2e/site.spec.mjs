@@ -157,3 +157,17 @@ for (const colorScheme of ['light', 'dark']) test(`acessibilidade (${colorScheme
   const dialogScan = await new AxeBuilder({ page }).include('#picker').withTags(tags).analyze();
   expect(dialogScan.violations.map(v => `${v.id}: ${v.nodes.length}`)).toEqual([]);
 });
+
+test('carregamento não move o layout (CLS abaixo de 0,05)', async ({ page, isMobile }) => {
+  test.skip(isMobile);
+  await page.addInitScript(() => {
+    window.__cls = 0;
+    new PerformanceObserver(list => {
+      for (const e of list.getEntries()) if (!e.hadRecentInput) window.__cls += e.value;
+    }).observe({ type: 'layout-shift', buffered: true });
+  });
+  await page.goto('/');
+  await expect(page.locator('#lg-rank > li')).toHaveCount(5);
+  await page.waitForTimeout(500);
+  expect(await page.evaluate(() => window.__cls)).toBeLessThan(0.05);
+});

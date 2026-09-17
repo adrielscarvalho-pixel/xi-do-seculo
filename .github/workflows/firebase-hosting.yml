@@ -1,30 +1,53 @@
-name: Publicar no Firebase Hosting
+name: Testar e publicar
 
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm test
 
-      - name: Preencher o endereco do site
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    # Pull requests de forks não têm acesso aos segredos.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Preencher endereço e versão
         env:
           PROJETO: ${{ secrets.FIREBASE_PROJECT_ID }}
           DOMINIO_PROPRIO: ${{ vars.DOMINIO }}
-        run: |
-          DOMINIO="${DOMINIO_PROPRIO:-${PROJETO}.web.app}"
-          echo "Publicando em https://$DOMINIO"
-          sed -i "s|__DOMINIO__|$DOMINIO|g" public/index.html
-          grep -c "$DOMINIO" public/index.html
+          VERSAO: ${{ github.sha }}
+        run: DOMINIO="${DOMINIO_PROPRIO:-${PROJETO}.web.app}" VERSAO="${VERSAO::8}" node scripts/prepare-deploy.mjs
 
-      - name: Publicar
+      - name: Publicar (produção na main, prévia nos pull requests)
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
-          channelId: live
+          channelId: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || 'live' }}
+          expires: 7d

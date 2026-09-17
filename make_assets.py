@@ -1,15 +1,18 @@
-import sys, os, urllib.request
+import sys, os, tempfile, urllib.request
 from PIL import Image, ImageDraw, ImageFont
-out = sys.argv[1] if len(sys.argv) > 1 else '.'
+out = sys.argv[1] if len(sys.argv) > 1 else 'public'
+os.makedirs(out, exist_ok=True)
 F = {'bs': 'https://github.com/google/fonts/raw/main/ofl/bigshouldersdisplay/BigShouldersDisplay%5Bwght%5D.ttf', 'ar': 'https://github.com/google/fonts/raw/main/ofl/archivo/Archivo%5Bwdth,wght%5D.ttf'}
+TMP = tempfile.gettempdir()
+def font_path(k): return os.path.join(TMP, f'xi-{k}.ttf')
 for k, u in F.items():
-    if not os.path.exists(f'/tmp/{k}.ttf'):
-        urllib.request.urlretrieve(u, f'/tmp/{k}.ttf')
+    if not os.path.exists(font_path(k)):
+        urllib.request.urlretrieve(u, font_path(k))
 G1, G2, INK, WHITE, GOLD = (29, 94, 63), (26, 85, 57), (16, 38, 27), (255, 255, 255), (246, 210, 88)
 def bs(size, w=800):
-    f = ImageFont.truetype('/tmp/bs.ttf', size); f.set_variation_by_axes([w]); return f
+    f = ImageFont.truetype(font_path('bs'), size); f.set_variation_by_axes([w]); return f
 def ar(size, w=600):
-    f = ImageFont.truetype('/tmp/ar.ttf', size); f.set_variation_by_axes([100, w]); return f
+    f = ImageFont.truetype(font_path('ar'), size); f.set_variation_by_axes([100, w]); return f
 S = 512
 img = Image.new('RGBA', (S, S)); d = ImageDraw.Draw(img)
 for i in range(8): d.rectangle([0, i * S / 8, S, (i + 1) * S / 8], fill=G1 if i % 2 == 0 else G2)

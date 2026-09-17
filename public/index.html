@@ -5,54 +5,90 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>O XI do século: índice de legado 2001–2026</title>
 <meta name="description" content="O melhor time do século 21 calculado por títulos e prêmios, com peso para a força de cada liga, a hegemonia do clube e o protagonismo em cada conquista. Mude os pesos e compartilhe o seu XI.">
-<meta name="theme-color" content="#1D5E3F">
+<link rel="canonical" href="https://__DOMINIO__/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1D5E3F" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B1510" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="O XI do século">
 <meta property="og:title" content="O XI do século">
 <meta property="og:description" content="Títulos e prêmios de 2001 a 2026 viram pontos, com peso para a força da liga e a hegemonia do clube. Mude os pesos e escale o seu time.">
 <meta property="og:url" content="https://__DOMINIO__/">
 <meta property="og:image" content="https://__DOMINIO__/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Campo de futebol com o XI do século em 4-3-3 e a pontuação de cada jogador">
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="O XI do século">
+<meta name="twitter:description" content="O melhor time do século 21 calculado por títulos e prêmios. Mude os pesos e escale o seu.">
+<meta name="twitter:image" content="https://__DOMINIO__/og.png">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="icon" type="image/svg+xml" href="/icon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="XI do século">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Big+Shoulders+Display:wght@700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="/js/engine.js?v=__VERSAO__" as="script">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"O XI do século","url":"https://__DOMINIO__/","description":"O melhor time do século 21 calculado por títulos e prêmios entre 2001 e 2026, com pesos ajustáveis.","inLanguage":"pt-BR","applicationCategory":"SportsApplication","operatingSystem":"Qualquer navegador","image":"https://__DOMINIO__/og.png","offers":{"@type":"Offer","price":"0","priceCurrency":"BRL"},"dateModified":"2026-09-11"}
+</script>
 <style>
-:root{--campo:#1D5E3F;--campo-2:#1A5539;--giz:rgba(255,255,255,.5);--tinta:#10261B;--texto-2:#4B5E53;--linha:#DCE3DC;--papel:#F4F7F3;--grama:#2F8F5B;--ouro:#D9A300;--ouro-claro:#F6D258;color-scheme:light}
+:root{
+--campo:#1D5E3F;--campo-2:#1A5539;--giz:rgba(255,255,255,.5);
+--tinta:#10261B;--texto-1:#2A3B31;--texto-2:#4B5E53;--texto-3:#6F8077;
+--papel:#F4F7F3;--superficie:#fff;--linha:#DCE3DC;--borda:#C5D0C7;--trilho:#CFD9D1;--fundo-barra:#EAEFEA;
+--inverso:#10261B;--inverso-texto:#fff;
+--grama:#2F8F5B;--ouro:#D9A300;--ouro-claro:#F6D258;--link:#1D5E3F;--foco:#D9A300;
+--sombra:0 1px 2px rgba(16,38,27,.06),0 4px 16px rgba(16,38,27,.05);
+color-scheme:light}
+@media (prefers-color-scheme:dark){:root{
+--campo:#1B5A3C;--campo-2:#184F35;--giz:rgba(255,255,255,.42);
+--tinta:#E4ECE6;--texto-1:#CBD7CF;--texto-2:#9DB0A4;--texto-3:#7F9387;
+--papel:#0B1510;--superficie:#122019;--linha:#223329;--borda:#304338;--trilho:#34483C;--fundo-barra:#1C2C23;
+--inverso:#E4ECE6;--inverso-texto:#0B1510;
+--grama:#3FAE72;--ouro:#E8B614;--link:#7FD3A2;--foco:#F6D258;
+--sombra:none;
+color-scheme:dark}}
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--papel);color:var(--tinta);font:400 16px/1.55 Archivo,system-ui,sans-serif}
-a{color:var(--campo);text-underline-offset:3px}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:16px}
+body{margin:0;background:var(--papel);color:var(--tinta);font:400 16px/1.55 Archivo,system-ui,-apple-system,"Segoe UI",sans-serif;text-rendering:optimizeLegibility}
+a{color:var(--link);text-underline-offset:3px}
 button{font:inherit;color:inherit}
-:focus-visible{outline:3px solid var(--ouro);outline-offset:2px}
-.wrap{max-width:1140px;margin:0 auto;padding:24px 16px 56px}
-.num,h1,h2,h3{font-family:"Big Shoulders Display",Archivo,sans-serif}
+button:disabled{opacity:.6;cursor:progress}
+:focus-visible{outline:3px solid var(--foco);outline-offset:2px}
+.skip{position:absolute;left:12px;top:-60px;z-index:10;background:var(--inverso);color:var(--inverso-texto);padding:10px 14px;border-radius:10px;font-weight:600;text-decoration:none}
+.skip:focus{top:12px}
+.wrap{max-width:1140px;margin:0 auto;padding:24px max(16px,env(safe-area-inset-right)) 56px max(16px,env(safe-area-inset-left))}
+.num,h1,h2,h3{font-family:"Big Shoulders Display",Impact,"Arial Narrow",sans-serif}
 h1{font-size:clamp(64px,17vw,112px);line-height:.86;font-weight:800;margin:0 0 14px;letter-spacing:-.01em}
 h2{font-size:34px;line-height:1;font-weight:800;margin:0}
 h3{font-size:22px;line-height:1.1;font-weight:700;margin:22px 0 8px}
 .lede{max-width:48ch;color:var(--texto-2);margin:0 0 24px;font-size:17px}
 .muted{color:var(--texto-2)}
 .small{font-size:13px}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+.ell{overflow:hidden;text-overflow:ellipsis}
 .layout{display:flex;flex-direction:column;gap:28px}
 .col{display:contents}
 .o1{order:1}.o2{order:2}.o3{order:3}.o4{order:4}.o5{order:5}.o6{order:6}
 .bar-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
-.seg{display:inline-flex;border:1px solid #C5D0C7;border-radius:10px;overflow:hidden;background:#fff;flex:none}
-.seg button{border:0;background:none;padding:9px 11px;font-weight:500;font-size:15px;cursor:pointer;white-space:nowrap;font-variant-numeric:tabular-nums}
-.seg button+button{border-left:1px solid #C5D0C7}
-.seg button[aria-pressed=true]{background:var(--tinta);color:#fff}
-.btn{display:inline-flex;align-items:center;gap:8px;border-radius:10px;padding:9px 14px;font-weight:600;font-size:15px;cursor:pointer;border:1px solid #C5D0C7;background:#fff;white-space:nowrap}
+.actions{display:flex;gap:8px;flex:none}
+.seg{display:inline-flex;border:1px solid var(--borda);border-radius:10px;overflow:hidden;background:var(--superficie);flex:none}
+.seg button{border:0;background:none;padding:9px 11px;font-weight:500;font-size:15px;cursor:pointer;white-space:nowrap;font-variant-numeric:tabular-nums;min-height:40px}
+.seg button+button{border-left:1px solid var(--borda)}
+.seg button[aria-pressed=true]{background:var(--inverso);color:var(--inverso-texto)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:10px;padding:9px 14px;min-height:40px;font-weight:600;font-size:15px;cursor:pointer;border:1px solid var(--borda);background:var(--superficie);white-space:nowrap;transition:background-color .15s,border-color .15s}
+.btn:hover{border-color:var(--texto-3)}
 .btn.go{background:var(--campo);border-color:var(--campo);color:#fff}
+.btn.go:hover{background:var(--campo-2)}
 .btn svg{width:18px;height:18px;flex:none}
-.board{position:relative;width:100%;aspect-ratio:3/4.1;border-radius:14px;overflow:hidden;background:repeating-linear-gradient(180deg,var(--campo) 0 12.5%,var(--campo-2) 12.5% 25%)}
+.board{position:relative;width:100%;aspect-ratio:3/4.1;border-radius:14px;overflow:hidden;background:repeating-linear-gradient(180deg,var(--campo) 0 12.5%,var(--campo-2) 12.5% 25%);box-shadow:var(--sombra)}
 .ln{position:absolute;border:1.5px solid var(--giz)}
 .ln.half{left:0;right:0;top:50%;border-width:1.5px 0 0}
 .ln.circ{left:50%;top:50%;width:28%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%}
@@ -60,15 +96,16 @@ h3{font-size:22px;line-height:1.1;font-weight:700;margin:22px 0 8px}
 .ln.bt,.ln.bb{left:21%;right:21%;height:15%}.ln.bt{top:-2px}.ln.bb{bottom:-2px}
 .ln.gt,.ln.gb{left:37%;right:37%;height:5.5%}.ln.gt{top:-2px}.ln.gb{bottom:-2px}
 .tk{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:4px;width:96px;background:none;border:0;padding:0;cursor:pointer;color:#fff;-webkit-tap-highlight-color:transparent}
-.disc{width:48px;height:48px;border-radius:50%;background:#fff;color:var(--tinta);display:grid;place-items:center;font:800 18px/1 "Big Shoulders Display",Archivo,sans-serif;border:2px solid rgba(16,38,27,.2);font-variant-numeric:tabular-nums}
+.disc{width:48px;height:48px;border-radius:50%;background:#fff;color:#10261B;display:grid;place-items:center;font:800 18px/1 "Big Shoulders Display",Impact,sans-serif;border:2px solid rgba(16,38,27,.2);font-variant-numeric:tabular-nums;transition:transform .15s}
+.tk:hover .disc{transform:scale(1.06)}
 .tk.gk .disc{background:var(--ouro-claro)}
-.tk[aria-pressed=true] .disc{background:var(--tinta);color:#fff;border-color:var(--ouro-claro);box-shadow:0 0 0 3px var(--ouro-claro)}
-.tag{font-size:12px;font-weight:600;line-height:1.2;padding:2px 6px;border-radius:4px;background:rgba(8,26,17,.5);max-width:96px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tk[aria-pressed=true] .disc{background:#10261B;color:#fff;border-color:var(--ouro-claro);box-shadow:0 0 0 3px var(--ouro-claro)}
+.tag{font-size:12px;font-weight:600;line-height:1.2;padding:2px 6px;border-radius:4px;background:rgba(8,26,17,.6);max-width:96px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tk:focus-visible{outline:none}.tk:focus-visible .disc{box-shadow:0 0 0 3px #fff}
 @keyframes pop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
 .swap .disc{animation:pop .38s cubic-bezier(.2,.9,.3,1.25)}
 .sum{margin:10px 2px 0;font-size:14px}
-.card{background:#fff;border:1px solid var(--linha);border-radius:14px;padding:16px 18px}
+.card{background:var(--superficie);border:1px solid var(--linha);border-radius:14px;padding:16px 18px;box-shadow:var(--sombra)}
 .head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px}
 .head h2{font-size:36px}
 .head p{margin:2px 0 0}
@@ -78,14 +115,17 @@ h3{font-size:22px;line-height:1.1;font-weight:700;margin:22px 0 8px}
 .brk .pts{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
 .brk .muted{text-align:right;font-variant-numeric:tabular-nums}
 .det{grid-column:1/-1;font-size:12.5px;line-height:1.4;color:var(--texto-2)}
-.meter{grid-column:1/-1;height:5px;border-radius:3px;background:#EAEFEA;overflow:hidden;display:block;margin-top:2px}
+.meter{grid-column:1/-1;height:5px;border-radius:3px;background:var(--fundo-barra);overflow:hidden;display:block;margin-top:2px}
 .meter span{display:block;height:100%;border-radius:3px}
 .c{background:var(--grama)}.i{background:var(--ouro)}
 .panel h2{font-size:30px}
 .panel-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{border:1px solid #C5D0C7;background:#fff;border-radius:999px;padding:7px 12px;font-size:14px;font-weight:500;cursor:pointer}
-.chip[aria-pressed=true]{background:var(--tinta);border-color:var(--tinta);color:#fff}
+.chip{border:1px solid var(--borda);background:var(--superficie);border-radius:999px;padding:7px 12px;min-height:36px;font-size:14px;font-weight:500;cursor:pointer}
+.chip:hover{border-color:var(--texto-3)}
+.chip[aria-pressed=true]{background:var(--inverso);border-color:var(--inverso);color:var(--inverso-texto)}
+.chip.ghost{border-style:dashed;cursor:default;color:var(--texto-2);display:inline-flex;align-items:center}
+.chip.ghost[hidden]{display:none}
 .group{display:flex;align-items:center;gap:8px}
 .sw{width:10px;height:10px;border-radius:2px;display:inline-block;flex:none}
 .w{padding:6px 0}
@@ -95,18 +135,22 @@ h3{font-size:22px;line-height:1.1;font-weight:700;margin:22px 0 8px}
 .tg{display:flex;gap:10px;align-items:flex-start;padding:8px 0;font-size:14px;cursor:pointer}
 .tg input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--campo);flex:none}
 input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:30px;background:transparent;margin:0;cursor:pointer}
-input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:#CFD9D1}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;margin-top:-9px;border-radius:50%;background:var(--campo);border:3px solid #fff;box-shadow:0 0 0 1px var(--campo)}
-input[type=range]::-moz-range-track{height:4px;border-radius:2px;background:#CFD9D1}
-input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--campo);border:3px solid #fff;box-shadow:0 0 0 1px var(--campo)}
+input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:var(--trilho)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;margin-top:-9px;border-radius:50%;background:var(--grama);border:3px solid var(--superficie);box-shadow:0 0 0 1px var(--grama)}
+input[type=range]::-moz-range-track{height:4px;border-radius:2px;background:var(--trilho)}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--grama);border:3px solid var(--superficie);box-shadow:0 0 0 1px var(--grama)}
 .rank-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px}
 .legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--texto-2);margin:0 0 12px}
 .legend span{display:inline-flex;align-items:center;gap:6px}
-.search{width:100%;height:44px;border:1px solid #C5D0C7;border-radius:10px;padding:0 14px;font:inherit;background:#fff;margin-bottom:10px;color:var(--tinta)}
-.search::placeholder{color:#7D8C83}
+.search-box{position:relative}
+.search{width:100%;height:44px;border:1px solid var(--borda);border-radius:10px;padding:0 44px 0 14px;font:inherit;background:var(--superficie);margin-bottom:10px;color:var(--tinta)}
+.search::placeholder{color:var(--texto-3)}
+.kbd{position:absolute;right:10px;top:11px;font:600 12px/1 Archivo,sans-serif;color:var(--texto-3);border:1px solid var(--borda);border-radius:5px;padding:4px 6px}
+@media (hover:none){.kbd{display:none}}
 .list{list-style:none;margin:6px 0 0;padding:0}
 .rk,.lgr{display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--linha);padding:12px 0}
-.rk{cursor:pointer}
+.rk{cursor:pointer;border-radius:0}
+@media (hover:hover){.rk:hover .rname{color:var(--link)}}
 .rn{font-size:22px;font-weight:700;color:var(--texto-2);font-variant-numeric:tabular-nums}
 .rb{display:block;min-width:0}
 .rname{display:flex;align-items:center;gap:6px;font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -124,39 +168,55 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 .ex li{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--linha);font-size:14px}
 .ex li span:last-child{font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
 .method{max-width:68ch}
-.method p,.method li{color:#2A3B31}
+.method p,.method li{color:var(--texto-1)}
 .method ul{padding-left:20px;margin:6px 0}
 .method li{margin:4px 0}
 table{border-collapse:collapse;width:100%;max-width:420px;margin:12px 0 4px;font-size:15px}
+th{text-align:left;font-weight:600;font-size:13px;color:var(--texto-2);padding:0 0 6px;border-bottom:1px solid var(--borda)}
+th+th{text-align:right}
 td{padding:7px 0;border-bottom:1px solid var(--linha)}
 td+td{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
 footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--linha);font-size:13px;color:var(--texto-2)}
-.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translate(-50%,20px);background:var(--tinta);color:#fff;padding:10px 16px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:calc(100% - 32px)}
+.noscript{background:var(--superficie);border:1px solid var(--linha);border-radius:14px;padding:16px 18px;margin:0 0 24px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translate(-50%,20px);background:var(--inverso);color:var(--inverso-texto);padding:10px 16px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:calc(100% - 32px);z-index:20}
 .toast.on{opacity:1;transform:translate(-50%,0)}
-@media (max-width:370px){.seg button{padding:9px 8px;font-size:14px}.btn.go{padding:9px 10px}}
+@media (max-width:520px){.bar-top{flex-wrap:wrap}.seg{flex:1 1 100%}.seg button{flex:1}.actions{flex:1 1 100%}.actions .btn{flex:1}}
+@media (max-width:370px){.seg button{padding:9px 6px;font-size:14px}}
 @media (min-width:960px){
 .wrap{padding:48px 32px 72px}
 .layout{display:grid;grid-template-columns:minmax(0,460px) minmax(0,1fr);gap:48px;align-items:start}
 .col{display:flex;flex-direction:column;gap:28px}
 .lede{margin-bottom:36px}
 }
-@media (prefers-reduced-motion:reduce){.swap .disc{animation:none}.toast{transition:none}}
+@media (prefers-reduced-motion:reduce){.swap .disc{animation:none}.toast,.tk,.disc,.btn{transition:none}}
+@media print{
+body{background:#fff;color:#000}
+.bar-top,.panel,#q,.search-box,#filters,#more,.toast,footer .btn,.skip{display:none!important}
+.board{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.layout,.col{display:block}
+section{break-inside:avoid;margin-bottom:24px}
+}
 </style>
 </head>
 <body>
+<a class="skip" href="#escalacao">Pular para a escalação</a>
 <div class="wrap">
 <header>
 <h1>O XI do século</h1>
 <p class="lede">Títulos e prêmios de 2001 a 2026 viram pontos, com peso para a força da liga, a hegemonia do clube e o papel de cada jogador na conquista. O time abaixo é o resultado da conta. Mude os pesos e escale o seu.</p>
+<noscript><p class="noscript">Este site calcula o time no navegador e precisa de JavaScript ativado.</p></noscript>
 </header>
-<main class="layout">
+<main class="layout" id="conteudo">
 <div class="col">
-<section class="o1" aria-label="Escalação">
+<section class="o1" id="escalacao" tabindex="-1" aria-label="Escalação">
 <div class="bar-top">
 <div class="seg" role="group" aria-label="Formação">
 <button type="button" data-f="4-3-3" aria-pressed="true">4-3-3</button><button type="button" data-f="4-2-3-1" aria-pressed="false">4-2-3-1</button><button type="button" data-f="4-4-2" aria-pressed="false">4-4-2</button>
 </div>
+<div class="actions">
+<button type="button" class="btn" id="image" aria-label="Salvar imagem do time" title="Salvar imagem do time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg><span class="lbl-long">Imagem</span></button>
 <button type="button" class="btn go" id="share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>Compartilhar</button>
+</div>
 </div>
 <div class="board">
 <span class="ln half"></span><span class="ln circ"></span><span class="ln spot"></span><span class="ln bt"></span><span class="ln gt"></span><span class="ln bb"></span><span class="ln gb"></span>
@@ -164,11 +224,13 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--linha);font-s
 </div>
 <p class="sum muted">Toque num jogador para ver a conta. Soma do time: <strong id="xi-sum">0</strong> pontos.</p>
 </section>
-<section class="o2 card" id="card" aria-live="polite"></section>
+<section class="o2 card" id="card" aria-label="Detalhes do jogador"></section>
 <section class="o6 method" id="metodo">
 <h2>Como a conta funciona</h2>
 <p>Cada título ou prêmio conquistado entre 2001 e setembro de 2026 vale pontos de acordo com a sua relevância. O time é montado posição por posição com quem soma mais. Um jogador pode ser escalado fora da posição de origem quando supera as opções dela, com desconto de 8% na comparação.</p>
 <table>
+<caption class="sr">Pontos por conquista no peso padrão</caption>
+<thead><tr><th scope="col">Conquista</th><th scope="col">Pontos</th></tr></thead>
 <tbody>
 <tr><td>Copa do Mundo</td><td>100</td></tr>
 <tr><td>Bola de Ouro</td><td>80</td></tr>
@@ -197,12 +259,12 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--linha);font-s
 </ul>
 <h3>Fontes</h3>
 <ul>
-<li><a href="https://www.fifpro.org/en/articles/2023/10/history-mens-world-11" rel="noopener">FIFPRO: todas as seleções World 11 desde 2005</a></li>
-<li><a href="https://kassiesa.net/uefa/data/method5/crank2026.html" rel="noopener">Coeficientes da UEFA por país, temporada a temporada</a></li>
-<li><a href="https://www.fifa.com/en/the-best-fifa-football-awards/2024/articles/mens-11-vote" rel="noopener">FIFA: The Best FIFA Men's 11 de 2024</a></li>
-<li><a href="https://www.fifa.com/en/the-best-fifa-football-awards/2025/articles/mens-player-2025-winner-ousmane-dembele" rel="noopener">FIFA: The Best 2025</a></li>
-<li><a href="https://www.fifa.com/pt/articles/premios-melhores-copa-do-mundo-fifa-2026" rel="noopener">FIFA: prêmios da Copa do Mundo 2026</a></li>
-<li><a href="https://www.uefa.com/uefachampionsleague/history/seasons/2026/" rel="noopener">UEFA: Champions League 2025/26</a></li>
+<li><a href="https://www.fifpro.org/en/articles/2023/10/history-mens-world-11" rel="noopener" target="_blank">FIFPRO: todas as seleções World 11 desde 2005</a></li>
+<li><a href="https://kassiesa.net/uefa/data/method5/crank2026.html" rel="noopener" target="_blank">Coeficientes da UEFA por país, temporada a temporada</a></li>
+<li><a href="https://www.fifa.com/en/the-best-fifa-football-awards/2024/articles/mens-11-vote" rel="noopener" target="_blank">FIFA: The Best FIFA Men's 11 de 2024</a></li>
+<li><a href="https://www.fifa.com/en/the-best-fifa-football-awards/2025/articles/mens-player-2025-winner-ousmane-dembele" rel="noopener" target="_blank">FIFA: The Best 2025</a></li>
+<li><a href="https://www.fifa.com/pt/articles/premios-melhores-copa-do-mundo-fifa-2026" rel="noopener" target="_blank">FIFA: prêmios da Copa do Mundo 2026</a></li>
+<li><a href="https://www.uefa.com/uefachampionsleague/history/seasons/2026/" rel="noopener" target="_blank">UEFA: Champions League 2025/26</a></li>
 <li>Bola de Ouro, Copas, Champions e campeões nacionais: registros oficiais de France Football, FIFA, UEFA e das ligas.</li>
 </ul>
 </section>
@@ -230,9 +292,9 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--linha);font-s
 <div class="rank-head"><h2 id="t-rank">Ranking completo</h2><span class="small muted" id="count"></span></div>
 <p class="legend"><span><span class="sw c"></span>Coletivo</span><span><span class="sw i"></span>Individual</span><span><svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3-4.6-4.4 6.3-.9z"/></svg>Está no XI</span></p>
 <label class="sr" for="q">Buscar jogador</label>
-<input class="search" id="q" type="search" placeholder="Buscar jogador, por exemplo Kaká" autocomplete="off">
+<div class="search-box"><input class="search" id="q" type="search" placeholder="Buscar jogador, por exemplo Kaká" autocomplete="off" enterkeyhint="search" spellcheck="false"><kbd class="kbd" aria-hidden="true">/</kbd></div>
 <div class="chips" id="filters" role="group" aria-label="Filtrar por posição"></div>
-<ol class="list" id="rank"></ol>
+<ol class="list" id="rank" aria-labelledby="t-rank"></ol>
 <button type="button" class="btn more" id="more">Mostrar todos</button>
 </section>
 <section class="o5" id="ligas" aria-labelledby="t-ligas">
@@ -245,151 +307,13 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--linha);font-s
 </div>
 </main>
 <footer>
-<p>Dados atualizados em 11 de setembro de 2026. No celular, use "Adicionar à tela inicial" para abrir como app.</p>
+<p>Dados atualizados em 11 de setembro de 2026. No celular, use "Adicionar à tela inicial" para abrir como app. Funciona sem internet depois da primeira visita.</p>
 <button type="button" class="btn" id="install" hidden>Instalar app</button>
 </footer>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script>
-(function(){
-var DATA={"P":[["Neuer","ALE","GOL","","2014T","2013T,2020T",0,0,0,1,0,0,4,"BAY:12-26"],["Casillas","ESP","GOL","","2010T","2002T,2014T",2,0,0,0,0,0,5,"RMA:01-15"],["Buffon","ITA","GOL","","2006T","",0,0,1,0,0,0,3,"JUV:02-18,PSG:19-19,JUV:20-21"],["Courtois","BEL","GOL","","","2022T,2024E",0,0,0,0,0,0,2,"ATM:12-14,CHE:15-18,RMA:19-26"],["Emiliano Martínez","ARG","GOL","","2022T","",2,0,0,0,0,0,1,""],["Kahn","ALE","GOL","","","2001T",0,0,0,2,0,1,0,"BAY:01-08"],["Ederson","BRA","GOL","","","2023T",1,0,0,0,0,0,1,"MCI:18-25"],["Donnarumma","ITA","GOL","","","2025T",1,0,0,0,0,0,2,"MIL:16-21,PSG:22-25,MCI:26-26"],["Alisson","BRA","GOL","","","2019T",1,0,0,0,0,0,2,"ROM:17-18,LIV:19-26"],["Čech","TCH","GOL","","","2012T",0,0,0,0,0,0,0,"CHE:05-15,ARS:16-19"],["Keylor Navas","CRC","GOL","","","2016T,2017T,2018T",0,0,0,0,0,0,0,"RMA:15-19,PSG:20-22"],["Van der Sar","HOL","GOL","","","2008T",0,0,0,0,0,0,0,"JUV:01-01,MUN:06-11"],["Daniel Alves","BRA","LD","","","2009T,2011T,2015T",2,0,0,0,0,0,8,"BAR:09-16,JUV:17-17,PSG:18-19,BAR:22-22"],["Carvajal","ESP","LD","","","2014T,2016T,2017T,2018T,2022T,2024T",1,0,0,0,0,0,1,"RMA:14-26"],["Lahm","ALE","LD","MC,LE","2014T","2013T",0,0,0,0,0,0,2,"BAY:06-17"],["Hakimi","MAR","LD","","","2018E,2025T,2026T",0,0,0,0,0,0,2,"RMA:18-18,BVB:19-20,INT:21-21,PSG:22-26"],["Cafu","BRA","LD","","2002T","2007T",0,0,0,0,0,0,1,"ROM:01-03,MIL:04-08"],["Alexander-Arnold","ING","LD","","","2019T",0,0,0,0,0,0,1,"LIV:17-25,RMA:26-26"],["Kyle Walker","ING","LD","","","2023T",0,0,0,0,0,0,1,"TOT:12-17,MCI:18-25"],["Zanetti","ARG","LD","LE","","2010T",0,0,0,0,0,0,0,"INT:01-14"],["Maicon","BRA","LD","","","2010T",2,0,0,0,0,0,1,"INT:07-12,MCI:13-13,ROM:14-16"],["Sergio Ramos","ESP","ZAG","LD","2010T","2014T,2016T,2017T,2018T",2,0,0,0,0,0,11,"RMA:06-21,PSG:22-23"],["Piqué","ESP","ZAG","","2010T","2008P,2009T,2011T,2015T",1,0,0,0,0,0,4,"MUN:05-06,MUN:08-08,BAR:09-23"],["Puyol","ESP","ZAG","LD","2010T","2006T,2009T,2011T",1,0,0,0,0,0,3,"BAR:01-14"],["Varane","FRA","ZAG","","2018T","2014T,2016T,2017T,2018T",0,0,0,0,0,0,1,"RMA:12-21,MUN:22-23"],["Boateng","ALE","ZAG","LD","2014T","2013T,2020T",0,0,0,0,0,0,0,"MCI:11-11,BAY:12-21"],["Cannavaro","ITA","ZAG","","2006T","",0,1,0,0,1,0,2,"INT:03-04,JUV:05-06,RMA:07-09,JUV:10-10"],["Nesta","ITA","ZAG","","2006P","2003T,2007T",0,0,0,0,0,0,2,"MIL:03-12"],["Marquinhos","BRA","ZAG","","","2025T,2026T",1,0,0,0,0,0,0,"ROM:13-13,PSG:14-26"],["Pepe","POR","ZAG","","","2014T,2016T,2017T",1,0,0,0,0,0,0,"RMA:08-17"],["Thiago Silva","BRA","ZAG","","","2021T",1,0,0,0,0,0,3,"MIL:10-12,PSG:13-20,CHE:21-24"],["Lúcio","BRA","ZAG","","2002T","2010T",0,0,0,0,0,0,1,"BAY:05-09,INT:10-12"],["Van Dijk","HOL","ZAG","","","2019T",0,0,1,0,0,0,5,"LIV:18-26"],["Terry","ING","ZAG","","","2012T",0,0,0,0,0,0,5,"CHE:01-17"],["Maldini","ITA","ZAG","LE","","2003T,2007T",0,0,0,1,0,0,1,"MIL:01-09"],["Rúben Dias","POR","ZAG","","","2023T",0,0,0,0,0,0,3,"MCI:21-26"],["Vidić","SRV","ZAG","","","2008T",0,0,0,0,0,0,2,"MUN:06-14,INT:15-16"],["Chiellini","ITA","ZAG","","","",1,0,0,0,0,0,0,"JUV:06-22"],["Marcelo","BRA","LE","","","2014T,2016T,2017T,2018T,2022E",0,0,0,0,0,0,6,"RMA:07-22"],["Alaba","AUT","LE","ZAG","","2013T,2020T,2022T,2024P",0,0,0,0,0,0,1,"BAY:10-21,RMA:22-26"],["Roberto Carlos","BRA","LE","","2002T","2002T",0,0,1,0,0,0,0,"RMA:01-07"],["Nuno Mendes","POR","LE","","","2025T,2026T",0,0,0,0,0,0,1,"PSG:22-26"],["Jordi Alba","ESP","LE","","","2015T",1,0,0,0,0,0,0,"VAL:09-12,BAR:13-23"],["Evra","FRA","LE","","","2008T",0,0,0,0,0,0,1,"MUN:06-14,JUV:15-17,OM:17-18"],["Alphonso Davies","CAN","LE","","","2020T",0,0,0,0,0,0,1,"BAY:19-26"],["Iniesta","ESP","MC","MEI,PE","2010T","2006T,2009T,2011T,2015T",2,0,1,1,0,0,9,"BAR:03-18"],["Modrić","CRO","MC","MEI","","2014T,2016T,2017T,2018T,2022T,2024P",0,1,0,0,1,1,6,"TOT:09-12,RMA:13-25,MIL:26-26"],["Xavi","ESP","MC","","2010T","2006P,2009T,2011T,2015P",2,0,0,3,0,0,6,"BAR:01-15"],["Kroos","ALE","MC","","2014T","2013T,2016T,2017T,2018T,2022T,2024T",0,0,0,0,0,0,4,"BAY:08-09,B04:09-10,BAY:11-14,RMA:15-24"],["Busquets","ESP","MC","","2010T","2009T,2011T,2015T",1,0,0,0,0,0,0,"BAR:09-23"],["Rodri","ESP","MC","","2026T","2023T",1,1,0,0,0,1,1,"ATM:19-19,MCI:20-26"],["Xabi Alonso","ESP","MC","","2010T","2005T,2014T",2,0,0,0,0,0,2,"LIV:05-09,RMA:10-14,BAY:15-17"],["Casemiro","BRA","MC","","","2014P,2016T,2017T,2018T,2022T",1,0,0,0,0,0,1,"RMA:13-14,RMA:16-22,MUN:23-26"],["Pirlo","ITA","MC","","2006T","2003T,2007T",0,0,0,0,0,0,1,"INT:01-01,MIL:02-11,JUV:12-15"],["Schweinsteiger","ALE","MC","","2014T","2013T",0,0,0,0,0,0,0,"BAY:03-15,MUN:16-17"],["Kimmich","ALE","MC","LD","","2020T",0,0,0,0,0,0,1,"BAY:16-26"],["Kanté","FRA","MC","","2018T","2021T",0,0,0,0,0,0,2,"LEI:16-16,CHE:17-23"],["Pedri","ESP","MC","MEI","2026T","",1,0,0,0,0,0,1,"BAR:21-26"],["Vitinha","POR","MC","","","2025T,2026T",0,0,0,1,0,0,1,"PSG:23-26"],["Lampard","ING","MC","MEI","","2012T",0,0,1,0,0,0,1,"CHE:02-14,MCI:15-15"],["Gerrard","ING","MC","MEI","","2005T",0,0,0,1,0,0,3,"LIV:01-15"],["Makélélé","FRA","MC","","","2002T",0,0,0,0,0,0,1,"RMA:01-03,CHE:04-08,PSG:09-11"],["Kaká","BRA","MEI","","2002E","2007T",0,1,0,0,1,0,3,"MIL:04-09,RMA:10-13,MIL:14-14"],["Thomas Müller","ALE","MEI","CA","2014T","2013T,2020T",0,0,0,0,0,0,0,"BAY:09-25"],["De Bruyne","BEL","MEI","MC","","2023T",0,0,0,1,0,0,5,"CHE:13-14,WOB:14-15,MCI:16-25,NAP:26-26"],["Zidane","FRA","MEI","MC","","2002T",0,0,0,0,1,1,2,"JUV:01-01,RMA:02-06"],["Bellingham","ING","MEI","MC","","2024T",0,0,0,1,0,0,3,"BVB:21-23,RMA:24-26"],["Sneijder","HOL","MEI","","","2010T",0,0,0,0,0,0,1,"RMA:08-09,INT:10-13"],["Özil","ALE","MEI","","2014T","",0,0,0,0,0,0,0,"WER:08-10,RMA:11-13,ARS:14-21"],["Messi","ARG","PD","CA,MEI","2022T","2006P,2009T,2011T,2015T",2,8,5,1,8,2,17,"BAR:05-21,PSG:22-23"],["Dembélé","FRA","PD","CA","2018P","2025T,2026T",0,1,0,0,1,0,1,"BVB:17-17,BAR:18-23,PSG:24-26"],["Di María","ARG","PD","PE","2022T","2014T",2,0,0,0,0,0,1,"RMA:11-14,MUN:15-15,PSG:16-22,JUV:23-23"],["Bale","GAL","PD","PE","","2014T,2016T,2017P,2018T,2022E",0,0,0,0,0,0,0,"TOT:08-13,RMA:14-20,RMA:22-22"],["Lamine Yamal","ESP","PD","","2026T","",1,0,1,0,0,0,2,"BAR:23-26"],["Robben","HOL","PD","","","2013T",0,0,0,0,0,0,1,"CHE:05-07,RMA:08-09,BAY:10-19"],["Figo","POR","PD","","","2002T",0,0,0,0,1,0,0,"RMA:01-05,INT:06-09"],["Salah","EGI","PD","","","2019T",0,0,0,0,0,0,0,"CHE:14-15,ROM:16-17,LIV:18-26"],["Cristiano Ronaldo","POR","PE","CA","","2008T,2014T,2016T,2017T,2018T",1,5,6,1,5,0,15,"MUN:04-09,RMA:10-18,JUV:19-21,MUN:22-23"],["Ronaldinho","BRA","PE","MEI","2002T","2006T",0,1,0,1,2,0,3,"PSG:02-03,BAR:04-08,MIL:09-11"],["Vinícius Jr","BRA","PE","","","2022T,2024T",0,0,1,0,1,0,2,"RMA:19-26"],["Neymar","BRA","PE","","","2015T",0,0,0,2,0,0,2,"BAR:14-17,PSG:18-23"],["Ribéry","FRA","PE","","","2013T",0,0,0,1,0,0,1,"OM:06-07,BAY:08-19"],["Hazard","BEL","PE","MEI","","2022E",0,0,0,0,0,0,2,"LOSC:08-12,CHE:13-19,RMA:20-23"],["Benzema","FRA","CA","","","2014T,2016T,2017T,2018T,2022T",0,1,0,0,0,0,1,"OL:05-09,RMA:10-23"],["Lewandowski","POL","CA","","","2020T",0,0,1,0,2,0,2,"BVB:11-14,BAY:15-22,BAR:23-26"],["Mbappé","FRA","CA","PE","2018T","",0,0,0,1,0,0,6,"ASM:16-17,PSG:18-24,RMA:25-26"],["Torres","ESP","CA","","2010T","2012T",2,0,0,1,0,0,2,"ATM:03-07,LIV:08-11,CHE:11-14,MIL:15-15,ATM:15-16"],["Ronaldo Fenômeno","BRA","CA","","2002T","",0,1,0,0,1,0,0,"INT:01-02,RMA:03-07,MIL:07-08"],["David Villa","ESP","CA","PE","2010T","2011T",1,0,0,0,0,0,1,"VAL:06-10,BAR:11-13,ATM:14-14"],["Eto'o","CMR","CA","","","2006T,2009T,2010T",0,0,0,0,0,0,2,"BAR:05-09,INT:10-11,CHE:14-14"],["Haaland","NOR","CA","","","2023T",0,0,1,0,0,0,4,"BVB:20-22,MCI:23-26"],["Shevchenko","UCR","CA","","","2003T",0,1,0,0,0,0,1,"MIL:01-06,CHE:07-08,MIL:09-09"],["Henry","FRA","CA","PE","","2009T",0,0,1,1,0,0,1,"ARS:01-07,BAR:08-10"],["Suárez","URU","CA","","","2015T",1,0,0,0,0,0,1,"LIV:11-14,BAR:15-20,ATM:21-22"],["Griezmann","FRA","CA","MEI","2018T","",0,0,0,2,0,0,0,"ATM:15-19,BAR:20-21,ATM:22-26"],["Ibrahimović","SUE","CA","","","",0,0,0,0,0,0,1,"JUV:05-06,INT:07-09,BAR:10-10,MIL:11-12,PSG:13-16,MUN:17-18,MIL:20-23"],["Drogba","CIV","CA","","","2012T",0,0,0,0,0,0,1,"OM:04-04,CHE:05-12,CHE:15-15"]],"S":{"PL":{"c":"MUN ARS MUN ARS CHE CHE MUN MUN MUN CHE MUN MCI MUN MCI CHE LEI CHE MCI MCI LIV MCI MCI MCI MCI LIV ARS","s":"787 810 772 778 858 873 891 1000 1000 1000 1000 1000 942 867 804 722 723 744 825 884 1000 1000 1000 1000 1000 1000","p":"41310112223031101120234410"},"LL":{"c":"RMA VAL RMA VAL BAR BAR RMA RMA BAR BAR BAR RMA BAR ATM BAR BAR RMA BAR BAR RMA ATM RMA BAR RMA BAR BAR","s":"1000 1000 1000 1000 1000 1000 1000 994 934 974 960 997 1000 1000 1000 1000 1000 1000 1000 1000 973 902 849 858 820 812","p":"10110112233230331331022212"},"SA":{"c":"ROM JUV JUV MIL --- INT INT INT INT INT MIL JUV JUV JUV JUV JUV JUV JUV JUV JUV INT MIL NAP INT NAP INT","s":"862 857 825 741 830 917 860 798 791 786 706 711 729 685 705 666 698 713 721 691 750 721 748 866 844 836","p":"02210012340012345555000112"},"BL":{"c":"BAY BVB BAY WER BAY BAY STU BAY WOB BAY BVB BVB BAY BAY BAY BAY BAY BAY BAY BAY BAY BAY BAY B04 BAY BAY","s":"746 774 677 620 665 665 577 643 713 784 809 891 904 836 794 758 757 668 694 731 732 705 753 831 749 777","p":"30303303030122334555555044"},"L1":{"c":"FCN OL OL OL OL OL OL OL BOR OM LOSC MHSC PSG PSG PSG PSG ASM PSG PSG PSG LOSC PSG PSG PSG PSG PSG","s":"649 619 575 605 671 698 698 695 631 657 626 642 670 578 524 499 540 527 565 579 558 563 558 641 635 699","p":"00123455000001230444034444"}},"L":{"ARS":"PL","ASM":"L1","ATM":"LL","B04":"BL","BAR":"LL","BAY":"BL","BVB":"BL","CHE":"PL","INT":"SA","JUV":"SA","LEI":"PL","LIV":"PL","LOSC":"L1","MCI":"PL","MIL":"SA","MUN":"PL","NAP":"SA","OL":"L1","OM":"L1","PSG":"L1","RMA":"LL","ROM":"SA","TOT":"PL","VAL":"LL","WER":"BL","WOB":"BL"},"C":{"ARS":"Arsenal","ASM":"Monaco","ATM":"Atlético de Madrid","B04":"Leverkusen","BAR":"Barcelona","BAY":"Bayern","BOR":"Bordeaux","BVB":"Borussia Dortmund","CHE":"Chelsea","FCN":"Nantes","INT":"Inter","JUV":"Juventus","LEI":"Leicester","LIV":"Liverpool","LOSC":"Lille","MCI":"Manchester City","MHSC":"Montpellier","MIL":"Milan","MUN":"Manchester United","NAP":"Napoli","OL":"Lyon","OM":"Olympique de Marseille","PSG":"PSG","RMA":"Real Madrid","ROM":"Roma","STU":"Stuttgart","VAL":"Valencia","WER":"Werder Bremen","WOB":"Wolfsburg"}};
-var LGK=['PL','LL','SA','BL','L1'];
-var LGN=['Premier League','La Liga','Serie A','Bundesliga','Ligue 1'];
-var CLUB=DATA.C;
-var S={};LGK.forEach(function(k){var d=DATA.S[k],cs=d.c.split(' '),ss=d.s.split(' ');S[k]={};cs.forEach(function(c,i){S[k][2001+i]={c:c,s:+ss[i]/1000,p:+d.p.charAt(i)/5}})});
-function seasonsOf(k){return Object.keys(S[k]).map(function(y){var e=S[k][y];return [+y,e.c,e.s,e.p]}).filter(function(t){return t[1]!=='---'})}
-function titles(ten){var out=[],seen={};if(!ten)return out;ten.split(',').forEach(function(t){var m=/^(\w+):(\d\d)-(\d\d)$/.exec(t);if(!m)return;var c=m[1],a=2000+(+m[2]),b=2000+(+m[3]),l=DATA.L[c];if(!l)return;for(var y=Math.max(a,2001);y<=b;y++){var e=S[l][y];if(e&&e.c===c&&!seen[l+y]){seen[l+y]=1;out.push({l:LGK.indexOf(l),c:c,y:y,s:e.s,p:e.p})}}});return out.sort(function(x,z){return x.y-z.y})}
-var PHI={T:1,P:0.6,E:0.25};
-var ROLE={P:'parcial',E:'elenco'};
-var K=['wc','ucl','cont','lg','b1','b2','b3','fifa','gb','xi'];
-var LBL={wc:'Copa do Mundo',ucl:'Champions League',cont:'Eurocopa ou Copa América',lg:'Ligas top-5',b1:'Bola de Ouro',b2:'Bola de Ouro, 2º lugar',b3:'Bola de Ouro, 3º lugar',fifa:'Melhor do mundo FIFA',gb:'Bola de Ouro da Copa',xi:'Seleção do ano FIFPRO/FIFA'};
-var IND={wc:0,ucl:0,cont:0,lg:0,b1:1,b2:1,b3:1,fifa:1,gb:1,xi:1};
-var DEF={wc:100,ucl:50,cont:35,lg:15,b1:80,b2:30,b3:15,fifa:50,gb:30,xi:15};
-var DX={h:60,s:1,phi:1};
-function mk(o,x){return [Object.assign({},DEF,o),Object.assign({},DX,x||{})]}
-var PRE={'Equilibrado':mk({}),'Só coletivo':mk({b1:0,b2:0,b3:0,fifa:0,gb:0,xi:0}),'Só individual':mk({wc:0,ucl:0,cont:0,lg:0,b1:100,b2:40,b3:20,fifa:60,gb:40,xi:20}),'Copa é rei':mk({wc:200,ucl:40,cont:30,lg:8,b1:60,b2:20,b3:10,fifa:40,gb:60,xi:10}),'Sem ligas':mk({lg:0}),'Sem ajustes':mk({lg:10},{h:0,s:0,phi:0})};
-var POS={GOL:['goleiro','goleiros'],LD:['lateral-direito','laterais-direitos'],ZAG:['zagueiro','zagueiros'],LE:['lateral-esquerdo','laterais-esquerdos'],MC:['meio-campista','meio-campistas'],MEI:['meia','meias'],PD:['ponta-direita','pontas-direitas'],PE:['ponta-esquerda','pontas-esquerdas'],CA:['centroavante','centroavantes']};
-var NAT={ALE:'Alemanha',ESP:'Espanha',ITA:'Itália',BEL:'Bélgica',ARG:'Argentina',BRA:'Brasil',TCH:'Tchéquia',MAR:'Marrocos',ING:'Inglaterra',FRA:'França',POR:'Portugal',HOL:'Holanda',SRV:'Sérvia',AUT:'Áustria',CAN:'Canadá',CRO:'Croácia',GAL:'País de Gales',EGI:'Egito',POL:'Polônia',NOR:'Noruega',UCR:'Ucrânia',URU:'Uruguai',SUE:'Suécia',CMR:'Camarões',CRC:'Costa Rica',CIV:'Costa do Marfim'};
-var SHORT={'Cristiano Ronaldo':'C. Ronaldo','Sergio Ramos':'Ramos','Emiliano Martínez':'E. Martínez','Alexander-Arnold':'A.-Arnold','Ronaldo Fenômeno':'Ronaldo','Thomas Müller':'Müller','Lamine Yamal':'Yamal','Alphonso Davies':'Davies','Roberto Carlos':'R. Carlos','Keylor Navas':'Navas','Kyle Walker':'Walker','Thiago Silva':'T. Silva','David Villa':'Villa','Schweinsteiger':'Schweini'};
-var FK={'433':'4-3-3','4231':'4-2-3-1','442':'4-4-2'};
-var FM={'4-3-3':[['PE',17,13],['CA',50,9],['PD',83,13],['MC',19,39],['MC',50,45],['MC',81,39],['LE',12,69],['ZAG',37,74],['ZAG',63,74],['LD',88,69],['GOL',50,91]],
-'4-2-3-1':[['CA',50,8],['PE',15,27],['MEI',50,30],['PD',85,27],['MC',32,51],['MC',68,51],['LE',12,70],['ZAG',37,75],['ZAG',63,75],['LD',88,70],['GOL',50,91]],
-'4-4-2':[['CA',33,10],['CA',67,10],['PE',12,36],['MC',37,43],['MC',63,43],['PD',88,36],['LE',12,69],['ZAG',37,74],['ZAG',63,74],['LD',88,69],['GOL',50,91]]};
-var LINES={'4-3-3':[['GOL'],['LD','ZAG','LE'],['MC'],['PD','CA','PE']],'4-2-3-1':[['GOL'],['LD','ZAG','LE'],['MC'],['PD','MEI','PE'],['CA']],'4-4-2':[['GOL'],['LD','ZAG','LE'],['PD','MC','PE'],['CA']]};
-var EXAMPLES=[['PL',2026],['LL',2014],['BL',2024],['BL',2012],['SA',2023],['PL',2024],['LL',2011],['SA',2016],['L1',2023],['BL',2019]];
-function norm(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
-function roles(s){return s?s.split(',').map(function(t){return {y:+t.slice(0,4),r:t.slice(4)}}):[]}
-var P=DATA.P.map(function(a,i){return {id:i,n:a[0],nat:a[1],pos:a[2],sec:a[3]?a[3].split(','):[],wc:roles(a[4]),ucl:roles(a[5]),cont:a[6],b1:a[7],b2:a[8],b3:a[9],fifa:a[10],gb:a[11],xi:a[12],lg:titles(a[13]),key:norm(a[0])}});
-var W=Object.assign({},DEF),X=Object.assign({},DX),F='4-3-3',pre='Equilibrado',filt='Todos',q='',all=false,sel=null,open=null,prev=[],R=[],XI=[],inXI=new Set();
-function $(id){return document.getElementById(id)}
-function fmt(n){return Math.round(n).toLocaleString('pt-BR')}
-function fmt1(n){return n.toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})}
-function fmt2(n){return n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}
-function cap1(s){return s.charAt(0).toUpperCase()+s.slice(1)}
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
-function season(y){return (y-1)+'/'+String(y).slice(2)}
-function tval(s,p){return (X.s?s:1)*(1-X.h/100*p)}
-function sameX(a){return a.h===X.h&&a.s===X.s&&a.phi===X.phi}
-function matchPre(){for(var n in PRE){if(K.every(function(k){return PRE[n][0][k]===W[k]})&&sameX(PRE[n][1]))return n}return ''}
-function readHash(){var h=decodeURIComponent(location.hash.slice(1));if(!h)return;var parts=h.split('_');if(FK[parts[0]])F=FK[parts[0]];
-if(parts[1]){var a=parts[1].split('-').map(Number);if(a.length===K.length&&a.every(function(n){return Number.isInteger(n)&&n>=0&&n<=200})){K.forEach(function(k,i){W[k]=a[i]})}}
-if(parts[2]){var b=parts[2].split('-').map(Number);if(b.length===3&&Number.isInteger(b[0])&&b[0]>=0&&b[0]<=90){X.h=b[0];X.s=b[1]?1:0;X.phi=b[2]?1:0}}
-pre=matchPre()}
-function writeHash(){var fk=Object.keys(FK).filter(function(k){return FK[k]===F})[0];var isDef=F==='4-3-3'&&pre==='Equilibrado';try{history.replaceState(null,'',location.pathname+location.search+(isDef?'':'#'+fk+'_'+K.map(function(k){return W[k]}).join('-')+'_'+[X.h,X.s,X.phi].join('-')))}catch(e){}}
-function parts(p){var o={};
-o.wc=p.wc.reduce(function(a,t){return a+W.wc*(X.phi?PHI[t.r]:1)},0);
-o.ucl=p.ucl.reduce(function(a,t){return a+W.ucl*(X.phi?PHI[t.r]:1)},0);
-o.cont=W.cont*p.cont;
-o.lg=p.lg.reduce(function(a,t){return a+W.lg*tval(t.s,t.p)},0);
-['b1','b2','b3','fifa','gb','xi'].forEach(function(k){o[k]=W[k]*p[k]});
-return o}
-function cnt(p,k){return (k==='wc'||k==='ucl'||k==='lg')?p[k].length:p[k]}
-function calc(){
-P.forEach(function(p){p.o=parts(p);p.c=p.o.wc+p.o.ucl+p.o.cont+p.o.lg;p.i=p.o.b1+p.o.b2+p.o.b3+p.o.fifa+p.o.gb+p.o.xi;p.t=p.c+p.i});
-R=P.slice().sort(function(a,b){return b.t-a.t||a.id-b.id});R.forEach(function(p,i){p.r=i+1});
-var bp={};R.forEach(function(p){bp[p.pos]=(bp[p.pos]||0)+1;p.pr=bp[p.pos]});
-XI=FM[F].map(function(s){return {pos:s[0],x:s[1],y:s[2],p:null,adapt:false}});
-var cap={};XI.forEach(function(s){cap[s.pos]=(cap[s.pos]||0)+1});
-var pairs=[];P.forEach(function(p){pairs.push({p:p,pos:p.pos,v:p.t,q:1});p.sec.forEach(function(s){pairs.push({p:p,pos:s,v:p.t*0.92,q:0})})});
-pairs.sort(function(a,b){return b.v-a.v||b.q-a.q||a.p.id-b.p.id});
-var used=new Set();
-pairs.forEach(function(o){if(used.has(o.p.id)||!cap[o.pos])return;var s=XI.filter(function(z){return z.pos===o.pos&&!z.p})[0];s.p=o.p;s.adapt=!o.q;used.add(o.p.id);cap[o.pos]--});
-inXI=used;
-if(sel===null||!used.has(sel)){sel=XI.reduce(function(a,b){return b.p.t>a.p.t?b:a}).p.id}
-}
-function detail(p,k){
-if(k==='wc'||k==='ucl'){return p[k].map(function(t){return t.y+(X.phi&&t.r!=='T'?' ('+ROLE[t.r]+')':'')}).join(', ')}
-if(k==='lg'){var g={},order=[];p.lg.forEach(function(t){var key=t.c+'|'+t.l;if(!g[key]){g[key]={c:t.c,l:t.l,n:0,v:0};order.push(key)}g[key].n++;g[key].v+=W.lg*tval(t.s,t.p)});
-return order.map(function(key){var o=g[key];return CLUB[o.c]+', '+LGN[o.l]+': '+o.n+(o.n>1?' títulos':' título')+', média de '+fmt1(o.v/o.n)}).join('. ')}
-return ''}
-function breakdown(p){
-var rows=K.filter(function(k){return cnt(p,k)>0}).map(function(k){return {k:k,n:cnt(p,k),v:p.o[k]}});
-if(!rows.length)return '<p class="muted small">Sem títulos ou prêmios nas categorias contadas.</p>';
-var mx=Math.max.apply(null,[1].concat(rows.map(function(r){return r.v})));
-return rows.map(function(r){var d=detail(p,r.k);return '<div class="brk"><span>'+LBL[r.k]+'</span><span class="muted">×'+r.n+'</span><span class="pts">'+fmt(r.v)+'</span>'+(d?'<span class="det">'+esc(d)+'</span>':'')+'<span class="meter"><span class="'+(IND[r.k]?'i':'c')+'" style="width:'+(r.v/mx*100)+'%"></span></span></div>'}).join('')}
-function renderBoard(){
-$('tokens').innerHTML=XI.map(function(s,i){var p=s.p;var changed=prev.length&&prev[i]!==p.id;return '<button type="button" class="tk'+(s.pos==='GOL'?' gk':'')+(changed?' swap':'')+'" data-id="'+p.id+'" style="left:'+s.x+'%;top:'+s.y+'%" aria-pressed="'+(p.id===sel)+'" aria-label="'+esc(p.n)+', '+fmt(p.t)+' pontos"><span class="disc">'+fmt(p.t)+'</span><span class="tag">'+esc(SHORT[p.n]||p.n)+'</span></button>'}).join('');
-prev=XI.map(function(s){return s.p.id});
-$('xi-sum').textContent=fmt(XI.reduce(function(a,s){return a+s.p.t},0))}
-function renderCard(){
-var s=XI.filter(function(z){return z.p.id===sel})[0];var p=s.p;
-var note=s.adapt?'. Nesta formação, joga adaptado como '+POS[s.pos][0]:'';
-$('card').innerHTML='<div class="head"><div><h2>'+esc(p.n)+'</h2><p class="muted">'+NAT[p.nat]+', '+POS[p.pos][0]+'</p><p class="muted small">'+p.r+'º no geral e '+p.pr+'º entre os '+POS[p.pos][1]+note+'</p></div><div class="total"><span class="num">'+fmt(p.t)+'</span><span class="small muted">pontos</span></div></div>'+breakdown(p)}
-function renderRank(focusId){
-var mx=Math.max(1,R[0].t);
-var list=R.filter(function(p){return (filt==='Todos'||p.pos===filt)&&(!q||p.key.indexOf(q)>-1)});
-var show=(filt==='Todos'&&!q&&!all)?list.slice(0,20):list;
-$('rank').innerHTML=show.length?show.map(function(p){var exp=open===p.id;var rn=filt==='Todos'?p.r:p.pr;return '<li><button type="button" class="rk" data-rid="'+p.id+'" aria-expanded="'+exp+'"><span class="rn num">'+rn+'</span><span class="rb"><span class="rname"><span style="overflow:hidden;text-overflow:ellipsis">'+esc(p.n)+'</span>'+(inXI.has(p.id)?'<svg class="star" viewBox="0 0 24 24" role="img" aria-label="Está no XI"><path d="M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3-4.6-4.4 6.3-.9z"/></svg>':'')+'</span><span class="rmeta">'+cap1(POS[p.pos][0])+', '+NAT[p.nat]+'</span><span class="stack">'+(p.c>0?'<span class="c" style="width:'+(p.c/mx*100)+'%"></span>':'')+(p.i>0?'<span class="i" style="width:'+(p.i/mx*100)+'%"></span>':'')+'</span></span><span class="rp num">'+fmt(p.t)+'</span></button>'+(exp?'<div class="rdet">'+breakdown(p)+'</div>':'')+'</li>'}).join(''):'<li class="empty">Nenhum jogador encontrado. Tente outro nome ou volte para "Todos".</li>';
-var more=$('more');more.hidden=!(filt==='Todos'&&!q&&list.length>20);more.textContent=all?'Mostrar só os 20 primeiros':'Mostrar todos os '+list.length;
-$('count').textContent=list.length+(list.length===1?' jogador':' jogadores');
-if(focusId!=null){var b=document.querySelector('[data-rid="'+focusId+'"]');if(b)b.focus({preventScroll:true})}}
-function renderLeagues(){
-var rows=LGK.map(function(k,i){var ss=seasonsOf(k);var avg=ss.reduce(function(a,t){return a+W.lg*tval(t[2],t[3])},0)/ss.length;var sAvg=ss.reduce(function(a,t){return a+t[2]},0)/ss.length;var heg=ss.filter(function(t){return t[3]>=0.6}).length;var champs={};ss.forEach(function(t){champs[t[1]]=1});return {i:i,avg:avg,s:sAvg,heg:heg,n:ss.length,dist:Object.keys(champs).length}});
-rows.sort(function(a,b){return b.avg-a.avg||a.i-b.i});
-var mx=Math.max(0.0001,rows[0].avg);
-$('lg-rank').innerHTML=rows.map(function(r,j){return '<li class="lgr"><span class="rn num">'+(j+1)+'</span><span class="rb"><span class="rname">'+LGN[r.i]+'</span><span class="rmeta">Força UEFA média de '+fmt2(r.s)+'. '+r.dist+' campeões diferentes. Em '+r.heg+' de '+r.n+' temporadas, o campeão já tinha ganho pelo menos três das cinco anteriores.</span><span class="stack"><span class="c" style="width:'+(r.avg/mx*100)+'%"></span></span></span><span class="rp num">'+fmt1(r.avg)+'</span></li>'}).join('');
-$('lg-ex').innerHTML=EXAMPLES.map(function(e){var t=seasonsOf(e[0]).filter(function(x){return x[0]===e[1]})[0];return '<li><span>'+CLUB[t[1]]+', '+LGN[LGK.indexOf(e[0])]+' '+season(t[0])+'</span><span>'+fmt1(W.lg*tval(t[2],t[3]))+' pts</span></li>'}).join('')}
-function renderControls(){
-Array.prototype.forEach.call(document.querySelectorAll('[data-f]'),function(b){b.setAttribute('aria-pressed',b.getAttribute('data-f')===F)});
-Array.prototype.forEach.call(document.querySelectorAll('[data-pre]'),function(b){b.setAttribute('aria-pressed',b.getAttribute('data-pre')===pre)});
-Array.prototype.forEach.call(document.querySelectorAll('[data-filt]'),function(b){b.setAttribute('aria-pressed',b.getAttribute('data-filt')===filt)});
-K.forEach(function(k){$('w-'+k).value=W[k];$('o-'+k).textContent=W[k]});
-$('x-h').value=X.h;$('o-h').textContent=X.h+'%';$('x-s').checked=!!X.s;$('x-phi').checked=!!X.phi}
-function render(){calc();renderControls();renderBoard();renderCard();renderRank();renderLeagues();writeHash()}
-function listPt(a){try{return new Intl.ListFormat('pt-BR',{type:'conjunction'}).format(a)}catch(e){return a.join(', ')}}
-function lineup(){return LINES[F].map(function(line){var names=[];line.forEach(function(pos){XI.forEach(function(s){if(s.pos===pos)names.push(s.p.n)})});return listPt(names)}).join('; ')}
-var tt;function toast(m){var el=$('toast');el.textContent=m;el.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){el.classList.remove('on')},2800)}
-function share(){
-writeHash();var url=location.href;var text='Meu XI do século ('+F+'): '+lineup()+'.';
-if(navigator.share){navigator.share({title:'O XI do século',text:text,url:url}).catch(function(){});return}
-if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text+'\n'+url).then(function(){toast('Link copiado com a sua escalação')},function(){toast('Copie o endereço na barra do navegador')})}else{toast('Copie o endereço na barra do navegador')}}
-$('presets').innerHTML=Object.keys(PRE).map(function(n){return '<button type="button" class="chip" data-pre="'+n+'" aria-pressed="false">'+n+'</button>'}).join('');
-$('filters').innerHTML=[['Todos','Todos'],['GOL','Goleiros'],['LD','Laterais-direitos'],['ZAG','Zagueiros'],['LE','Laterais-esquerdos'],['MC','Meio-campistas'],['MEI','Meias'],['PD','Pontas-direitas'],['PE','Pontas-esquerdas'],['CA','Centroavantes']].map(function(f){return '<button type="button" class="chip" data-filt="'+f[0]+'" aria-pressed="false" title="'+f[1]+'" aria-label="'+f[1]+'">'+f[0]+'</button>'}).join('');
-function slider(k){return '<div class="w"><label for="w-'+k+'"><span>'+LBL[k]+'</span><output id="o-'+k+'" for="w-'+k+'">'+W[k]+'</output></label><input type="range" id="w-'+k+'" min="0" max="200" step="5" value="'+W[k]+'"></div>'}
-$('wc-group').innerHTML=K.filter(function(k){return !IND[k]}).map(slider).join('');
-$('wi-group').innerHTML=K.filter(function(k){return IND[k]}).map(slider).join('');
-K.forEach(function(k){$('w-'+k).addEventListener('input',function(e){W[k]=+e.target.value;pre=matchPre();render()})});
-$('x-h').addEventListener('input',function(e){X.h=+e.target.value;pre=matchPre();render()});
-$('x-s').addEventListener('change',function(e){X.s=e.target.checked?1:0;pre=matchPre();render()});
-$('x-phi').addEventListener('change',function(e){X.phi=e.target.checked?1:0;pre=matchPre();render()});
-$('q').addEventListener('input',function(e){q=norm(e.target.value.trim());open=null;renderRank()});
-document.addEventListener('click',function(e){
-var t=e.target.closest('button');if(!t)return;
-if(t.hasAttribute('data-f')){F=t.getAttribute('data-f');render()}
-else if(t.hasAttribute('data-pre')){pre=t.getAttribute('data-pre');W=Object.assign({},PRE[pre][0]);X=Object.assign({},PRE[pre][1]);render()}
-else if(t.hasAttribute('data-id')){sel=+t.getAttribute('data-id');renderBoard();renderCard()}
-else if(t.hasAttribute('data-filt')){filt=t.getAttribute('data-filt');open=null;renderControls();renderRank()}
-else if(t.hasAttribute('data-rid')){var id=+t.getAttribute('data-rid');open=open===id?null:id;renderRank(id)}
-else if(t.id==='more'){all=!all;renderRank()}
-else if(t.id==='toggle-w'){var w=$('weights');w.hidden=!w.hidden;t.setAttribute('aria-expanded',String(!w.hidden))}
-else if(t.id==='reset'){W=Object.assign({},DEF);X=Object.assign({},DX);pre='Equilibrado';render()}
-else if(t.id==='share'){share()}
-else if(t.id==='install'&&window.__deferredInstall){window.__deferredInstall.prompt();window.__deferredInstall=null;t.hidden=true}});
-window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();window.__deferredInstall=e;$('install').hidden=false});
-window.addEventListener('hashchange',function(){readHash();render()});
-readHash();render();
-if('serviceWorker' in navigator&&location.protocol==='https:'){navigator.serviceWorker.register('/sw.js').catch(function(){})}
-})();
-</script>
+<div class="sr" id="live" aria-live="polite"></div>
+<script src="/js/engine.js?v=__VERSAO__" defer></script>
+<script src="/js/app.js?v=__VERSAO__" defer></script>
 </body>
 </html>

@@ -225,9 +225,13 @@
     return {
       id: i, n: a[0], nat: a[1], pos: a[2], sec: a[3] ? a[3].split(',') : [],
       wc: roles(a[4]), ucl: roles(a[5]), cont: a[6], b1: a[7], b2: a[8], b3: a[9], fifa: a[10], gb: a[11], xi: a[12],
-      lg: leagueTitles(a[13]), key: norm(a[0])
+      lg: leagueTitles(a[13]), key: norm(a[0]), slug: norm(a[0]).replace(/[^a-z0-9]+/g, '')
     };
   });
+  var BY_SLUG = {};
+  PLAYERS.forEach(function (p) { BY_SLUG[p.slug] = p.id; });
+
+  function canPlay(p, pos) { return p.pos === pos || p.sec.indexOf(pos) > -1; }
 
   /* ---------- pontuação ---------- */
   function titleValue(s, p, X) { return (X.s ? s : 1) * (1 - X.h / 100 * p); }
@@ -246,8 +250,33 @@
 
   var EPS = 1e-9;
 
-  /* Calcula pontos, ranking (empates dividem a posição) e o XI da formação. */
-  function compute(W, X, F) {
+  /* Mantém só escolhas válidas: vaga existente, jogador apto para a posição e sem repetição. */
+  function cleanLocks(F, locks) {
+    var out = {}, seen = {};
+    if (!locks) return out;
+    Object.keys(locks).forEach(function (k) {
+      var i = +k, id = locks[k], slot = FM[F][i], p = PLAYERS[id];
+      if (!slot || !p || seen[id] || !canPlay(p, slot[0])) return;
+      seen[id] = 1; out[i] = id;
+    });
+    return out;
+  }
+
+  /* Leva as escolhas para outra formação, vaga a vaga na mesma posição. */
+  function remapLocks(fromF, toF, locks) {
+    var out = {}, taken = {};
+    Object.keys(cleanLocks(fromF, locks)).forEach(function (k) {
+      var pos = FM[fromF][+k][0];
+      for (var i = 0; i < FM[toF].length; i++) {
+        if (!taken[i] && FM[toF][i][0] === pos) { taken[i] = 1; out[i] = locks[k]; return; }
+      }
+    });
+    return out;
+  }
+
+  /* Calcula pontos, ranking (empates dividem a posição) e o XI da formação.
+     locks: { índice da vaga: id do jogador } com as escolhas feitas à mão. */
+  function compute(W, X, F, locks) {
     var scored = PLAYERS.map(function (base) {
       var p = Object.assign({}, base);
       p.o = parts(p, W, X);
@@ -267,23 +296,40 @@
       lastByPos[p.pos] = p;
     });
 
-    var xi = FM[F].map(function (s) { return { pos: s[0], x: s[1], y: s[2], p: null, adapt: false }; });
-    var cap = {};
+    var xi = FM[F].map(function (s) { return { pos: s[0], x: s[1], y: s[2], p: null, adapt: false, locked: false }; });
+    var cap = {}, used = new Set();
     xi.forEach(function (s) { cap[s.pos] = (cap[s.pos] || 0) + 1; });
+    var fixed = cleanLocks(F, locks);
+    Object.keys(fixed).forEach(function (k) {
+      var slot = xi[+k], p = scored[fixed[k]];
+      slot.p = p; slot.adapt = p.pos !== slot.pos; slot.locked = true; used.add(p.id); cap[slot.pos]--;
+    });
     var pairs = [];
     scored.forEach(function (p) {
       pairs.push({ p: p, pos: p.pos, v: p.t, q: 1 });
       p.sec.forEach(function (s) { pairs.push({ p: p, pos: s, v: p.t * ADAPT, q: 0 }); });
     });
     pairs.sort(function (a, b) { return b.v - a.v || b.q - a.q || a.p.id - b.p.id; });
-    var used = new Set();
     pairs.forEach(function (o) {
       if (used.has(o.p.id) || !cap[o.pos]) return;
       var slot = xi.filter(function (z) { return z.pos === o.pos && !z.p; })[0];
       slot.p = o.p; slot.adapt = !o.q; used.add(o.p.id); cap[o.pos]--;
     });
     var best = xi.reduce(function (a, b) { return b.p.t > a.p.t ? b : a; }).p.id;
-    return { ranked: ranked, byId: scored, xi: xi, inXI: used, best: best, sum: xi.reduce(function (a, s) { return a + s.p.t; }, 0) };
+    return {
+      ranked: ranked, byId: scored, xi: xi, inXI: used, best: best, locks: fixed,
+      sum: xi.reduce(function (a, s) { return a + s.p.t; }, 0)
+    };
+  }
+
+  /* Opções para uma vaga: quem joga na posição, com 8% de desconto para adaptados. */
+  function candidates(res, slotIndex) {
+    var slot = res.xi[slotIndex];
+    return res.ranked.filter(function (p) { return canPlay(p, slot.pos); }).map(function (p) {
+      var at = -1;
+      res.xi.forEach(function (z, i) { if (z.p.id === p.id) at = i; });
+      return { p: p, adapt: p.pos !== slot.pos, v: p.pos === slot.pos ? p.t : p.t * ADAPT, current: at === slotIndex, elsewhere: at > -1 && at !== slotIndex };
+    }).sort(function (a, b) { return b.v - a.v || a.p.id - b.p.id; });
   }
 
   function breakdownRows(p) {
@@ -330,7 +376,9 @@
   }
 
   /* ---------- estado compartilhável no endereço ---------- */
-  function isDefault(st) { return st.F === DEFAULT_F && matchPreset(st.W, st.X) === DEFAULT_PRESET; }
+  function isDefault(st) {
+    return st.F === DEFAULT_F && matchPreset(st.W, st.X) === DEFAULT_PRESET && !Object.keys(st.L || {}).length;
+  }
 
   function matchPreset(W, X) {
     for (var n in PRE) {
@@ -343,12 +391,14 @@
   function encodeState(st) {
     if (isDefault(st)) return '';
     var fk = Object.keys(FK).filter(function (k) { return FK[k] === st.F; })[0];
-    return fk + '_' + K.map(function (k) { return st.W[k]; }).join('-') + '_' + [st.X.h, st.X.s, st.X.phi].join('-');
+    var locks = cleanLocks(st.F, st.L);
+    var l = Object.keys(locks).sort(function (a, b) { return a - b; }).map(function (k) { return k + '.' + PLAYERS[locks[k]].slug; }).join('-');
+    return fk + '_' + K.map(function (k) { return st.W[k]; }).join('-') + '_' + [st.X.h, st.X.s, st.X.phi].join('-') + (l ? '_' + l : '');
   }
 
   /* Lê o trecho depois do #. Valores inválidos são ignorados e mantêm o padrão. */
   function decodeState(hash) {
-    var st = { F: DEFAULT_F, W: Object.assign({}, DEF), X: Object.assign({}, DX) };
+    var st = { F: DEFAULT_F, W: Object.assign({}, DEF), X: Object.assign({}, DX), L: {} };
     var h;
     try { h = decodeURIComponent(String(hash || '').replace(/^#/, '')); } catch (e) { return st; }
     if (!h) return st;
@@ -365,6 +415,14 @@
       if (b.length === 3 && Number.isInteger(b[0]) && b[0] >= 0 && b[0] <= H_MAX && b[0] % 10 === 0) {
         st.X.h = b[0]; st.X.s = b[1] ? 1 : 0; st.X.phi = b[2] ? 1 : 0;
       }
+    }
+    if (seg[3]) {
+      var raw = {};
+      seg[3].split('-').forEach(function (pair) {
+        var m = /^(\d{1,2})\.([a-z0-9]+)$/.exec(pair);
+        if (m && BY_SLUG[m[2]] !== undefined) raw[+m[1]] = BY_SLUG[m[2]];
+      });
+      st.L = cleanLocks(st.F, raw);
     }
     return st;
   }
@@ -386,7 +444,7 @@
     K: K, LBL: LBL, IND: IND, DEF: DEF, DX: DX, W_MAX: W_MAX, H_MAX: H_MAX, PRE: PRE, DEFAULT_PRESET: DEFAULT_PRESET,
     POS: POS, NAT: NAT, SHORT: SHORT, FK: FK, FM: FM, LINES: LINES, DEFAULT_F: DEFAULT_F, EXAMPLES: EXAMPLES,
     PLAYERS: PLAYERS, seasonsOf: seasonsOf, norm: norm, season: season, titleValue: titleValue,
-    compute: compute, breakdownRows: breakdownRows, detail: detail, leagueTable: leagueTable,
+    compute: compute, candidates: candidates, canPlay: canPlay, cleanLocks: cleanLocks, remapLocks: remapLocks, breakdownRows: breakdownRows, detail: detail, leagueTable: leagueTable,
     leagueTitleValue: leagueTitleValue, matchPreset: matchPreset, encodeState: encodeState,
     decodeState: decodeState, isDefault: isDefault, lineupText: lineupText
   };

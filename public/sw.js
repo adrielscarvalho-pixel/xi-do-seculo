@@ -1,7 +1,6 @@
 /* Cache offline. A publicação troca __VERSAO__ pelo commit, o que invalida o cache antigo. */
 const VERSION = '__VERSAO__';
 const CACHE = 'xi-' + VERSION;
-const FONTS = 'xi-fonts-v1';
 const PRECACHE = [
   '/',
   '/js/engine.js?v=' + VERSION,
@@ -11,7 +10,11 @@ const PRECACHE = [
   '/icon-192.png',
   '/icon-512.png',
   '/favicon-32.png',
-  '/apple-touch-icon.png'
+  '/apple-touch-icon.png',
+  '/fonts/archivo-latin.woff2',
+  '/fonts/archivo-latin-ext.woff2',
+  '/fonts/big-shoulders-latin.woff2',
+  '/fonts/big-shoulders-latin-ext.woff2'
 ];
 
 self.addEventListener('install', event => {
@@ -21,7 +24,7 @@ self.addEventListener('install', event => {
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys()
-      .then(keys => Promise.all(keys.filter(k => k !== CACHE && k !== FONTS).map(k => caches.delete(k))))
+      .then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
@@ -56,14 +59,6 @@ self.addEventListener('fetch', event => {
         const network = fetch(request).then(res => put(CACHE, request, res)).catch(() => cached);
         return cached || network;
       })
-    );
-    return;
-  }
-
-  // Fontes do Google: não mudam, ficam no cache de vez.
-  if (url.hostname === 'fonts.gstatic.com' || url.hostname === 'fonts.googleapis.com') {
-    event.respondWith(
-      caches.match(request).then(cached => cached || fetch(request).then(res => put(FONTS, request, res)))
     );
   }
 });

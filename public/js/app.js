@@ -5,8 +5,6 @@
   if (!E) return;
 
   var STAR = '<path d="M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3-4.6-4.4 6.3-.9z"/>';
-  var FILTERS = [['Todos', 'Todos'], ['GOL', 'Goleiros'], ['LD', 'Laterais-direitos'], ['ZAG', 'Zagueiros'], ['LE', 'Laterais-esquerdos'],
-    ['MC', 'Meio-campistas'], ['MEI', 'Meias'], ['PD', 'Pontas-direitas'], ['PE', 'Pontas-esquerdas'], ['CA', 'Centroavantes']];
   var TOP = 20;
 
   var st = E.decodeState(location.hash);
@@ -26,8 +24,15 @@
 
   /* ---------- cálculo ---------- */
   function calc() {
-    res = E.compute(st.W, st.X, st.F);
+    res = E.compute(st.W, st.X, st.F, st.L);
+    st.L = res.locks;
     if (ui.sel === null || !res.inXI.has(ui.sel)) ui.sel = res.best;
+  }
+
+  function lockCount() { return Object.keys(st.L).length; }
+  function slotOf(id) {
+    for (var i = 0; i < res.xi.length; i++) if (res.xi[i].p.id === id) return i;
+    return -1;
   }
 
   /* ---------- desenho ---------- */
@@ -46,12 +51,17 @@
   function renderBoard() {
     $('tokens').innerHTML = res.xi.map(function (s, i) {
       var p = s.p, changed = prevIds.length && prevIds[i] !== p.id;
-      var label = p.n + ', ' + E.POS[s.pos][0] + (s.adapt ? ' adaptado' : '') + ', ' + fmt(p.t) + ' pontos';
-      return '<button type="button" class="tk' + (s.pos === 'GOL' ? ' gk' : '') + (changed ? ' swap' : '') + '" data-id="' + p.id +
-        '" style="left:' + s.x + '%;top:' + s.y + '%" aria-pressed="' + (p.id === ui.sel) + '" aria-label="' + esc(label) + '">' +
-        '<span class="disc">' + fmt(p.t) + '</span><span class="tag">' + esc(shortName(p.n)) + '</span></button>';
+      var extra = ', ' + (p.n !== shortName(p.n) ? p.n + ', ' : '') + E.POS[s.pos][0] + (s.adapt ? ' adaptado' : '') + (s.locked ? ', escolha sua' : '');
+      // O nome acessível começa pelo texto visível (pontos e nome), como pede a WCAG 2.5.3.
+      return '<button type="button" class="tk' + (s.pos === 'GOL' ? ' gk' : '') + (s.locked ? ' locked' : '') + (changed ? ' swap' : '') + '" data-id="' + p.id +
+        '" style="left:' + s.x + '%;top:' + s.y + '%" aria-pressed="' + (p.id === ui.sel) + '">' +
+        '<span class="disc">' + fmt(p.t) + '<span class="sr"> pontos,</span></span><span class="tag">' + esc(shortName(p.n)) +
+        '<span class="sr">' + esc(extra) + '</span></span></button>';
     }).join('');
     $('xi-sum').textContent = fmt(res.sum);
+    var n = lockCount();
+    $('locks-note').hidden = !n;
+    $('locks-count').textContent = n === 1 ? '1 jogador escolhido por você.' : n + ' jogadores escolhidos por você.';
   }
 
   function announceChanges() {
@@ -68,12 +78,21 @@
   }
 
   function renderCard() {
-    var s = res.xi.filter(function (z) { return z.p.id === ui.sel; })[0];
-    var p = s.p;
+    var i = slotOf(ui.sel), s = res.xi[i], p = s.p;
     var note = s.adapt ? '. Nesta formação, joga adaptado como ' + E.POS[s.pos][0] : '';
+    var lockInfo = '';
+    if (s.locked) {
+      var others = Object.assign({}, st.L);
+      delete others[i];
+      var auto = E.compute(st.W, st.X, st.F, others).xi[i].p;
+      lockInfo = '<p class="lock-info"><span>Escolha sua.' + (auto.id !== p.id ? ' Pela conta, a vaga seria de ' + esc(auto.n) + ', com ' + fmt(auto.t) + ' pontos.' : '') + '</span>' +
+        '<button type="button" class="link-btn" data-unlock="' + i + '">Voltar ao calculado</button></p>';
+    }
     $('card').innerHTML = '<div class="head"><div><h2>' + esc(p.n) + '</h2><p class="muted">' + E.NAT[p.nat] + ', ' + E.POS[p.pos][0] + '</p>' +
       '<p class="muted small">' + p.r + 'º no geral e ' + p.pr + 'º entre os ' + E.POS[p.pos][1] + note + '</p></div>' +
-      '<div class="total"><span class="num">' + fmt(p.t) + '</span><span class="small muted">pontos</span></div></div>' + breakdown(p);
+      '<div class="total"><span class="num">' + fmt(p.t) + '</span><span class="small muted">pontos</span></div></div>' +
+      '<div class="card-actions"><button type="button" class="btn" data-pick="' + i + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4L3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/></svg>' +
+      'Trocar ' + E.POS[s.pos][0] + '</button></div>' + lockInfo + breakdown(p);
   }
 
   function renderRank(focusId) {
@@ -202,7 +221,8 @@
     ctx.fillStyle = INK; ctx.fillRect(0, 0, W, H);
     ctx.fillStyle = '#fff'; ctx.textBaseline = 'alphabetic';
     ctx.font = '800 112px ' + DISP; ctx.fillText('O XI do século', M, 150);
-    var label = pre ? 'Pesos: ' + pre : 'Pesos personalizados';
+    var n = lockCount();
+    var label = (pre ? 'Pesos: ' + pre : 'Pesos personalizados') + (n ? '  ·  ' + n + (n === 1 ? ' escolha sua' : ' escolhas suas') : '');
     ctx.font = '600 34px ' + TXT; ctx.fillStyle = '#D6E2D9';
     ctx.fillText(st.F + '  ·  ' + label, M, 206);
     ctx.textAlign = 'right'; ctx.fillStyle = GOLD; ctx.font = '800 64px ' + DISP;
@@ -271,13 +291,54 @@
     });
   }
 
+  /* ---------- trocar jogador ---------- */
+  var picker = $('picker');
+
+  function openPicker(slot) {
+    var s = res.xi[slot], list = E.candidates(res, slot);
+    $('picker-title').textContent = 'Escolher ' + E.POS[s.pos][0];
+    $('picker-hint').textContent = 'Ordenado por pontos. Quem joga adaptado tem 8% de desconto na comparação. Escolher alguém que já está no time muda o jogador de vaga.';
+    $('picker-list').innerHTML = list.map(function (c, j) {
+      var p = c.p, meta = [cap1(E.POS[p.pos][0]) + ', ' + E.NAT[p.nat]];
+      if (c.adapt) meta.push('adaptado');
+      if (c.elsewhere) meta.push('no XI como ' + E.POS[res.xi[slotOf(p.id)].pos][0]);
+      return '<li><button type="button" class="rk pick' + (c.current ? ' current' : '') + '" data-choose="' + slot + ':' + p.id + '"' + (c.current ? ' aria-current="true"' : '') + '>' +
+        '<span class="rn num">' + (j + 1) + '</span><span class="rb"><span class="rname"><span class="ell">' + esc(p.n) + '</span>' +
+        (c.current ? '<span class="badge">Atual</span>' : '') + '</span><span class="rmeta">' + esc(meta.join(' · ')) + '</span></span>' +
+        '<span class="rp num">' + fmt(c.v) + '<span class="sr"> pontos</span></span></button></li>';
+    }).join('');
+    if (picker.showModal) picker.showModal(); else picker.setAttribute('open', '');
+    var cur = picker.querySelector('.current');
+    if (cur) { cur.focus(); cur.scrollIntoView({ block: 'center' }); }
+  }
+
+  function closePicker() {
+    if (picker.close) picker.close(); else picker.removeAttribute('open');
+  }
+
+  function choose(slot, id) {
+    Object.keys(st.L).forEach(function (k) { if (st.L[k] === id) delete st.L[k]; });
+    var others = Object.assign({}, st.L);
+    delete others[slot];
+    // Se a conta já escolheria esse jogador, não guarda como escolha pessoal.
+    if (E.compute(st.W, st.X, st.F, others).xi[slot].p.id === id) delete st.L[slot];
+    else st.L[slot] = id;
+    ui.sel = id;
+    closePicker();
+    render();
+    toast(player(id).n + ' entrou como ' + E.POS[res.xi[slot].pos][0]);
+    var b = document.querySelector('[data-pick]');
+    if (b) b.focus({ preventScroll: true });
+  }
+
+  // Fecha só com clique no fundo escurecido, fora da caixa (o padding da caixa também é o próprio dialog).
+  picker.addEventListener('click', function (e) {
+    if (e.target !== picker) return;
+    var r = picker.getBoundingClientRect();
+    if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) closePicker();
+  });
+
   /* ---------- montagem ---------- */
-  $('presets').innerHTML = Object.keys(E.PRE).map(function (n) {
-    return '<button type="button" class="chip" data-pre="' + esc(n) + '" aria-pressed="false">' + n + '</button>';
-  }).join('') + '<span class="chip ghost" id="custom" hidden>Personalizado</span>';
-  $('filters').innerHTML = FILTERS.map(function (f) {
-    return '<button type="button" class="chip" data-filt="' + f[0] + '" aria-pressed="false" title="' + f[1] + '" aria-label="' + f[1] + '">' + f[0] + '</button>';
-  }).join('');
   function slider(k) {
     return '<div class="w"><label for="w-' + k + '"><span>' + E.LBL[k] + '</span><output id="o-' + k + '" for="w-' + k + '">' + st.W[k] + '</output></label>' +
       '<input type="range" id="w-' + k + '" min="0" max="' + E.W_MAX + '" step="5" value="' + st.W[k] + '"></div>';
@@ -301,7 +362,15 @@
   document.addEventListener('click', function (e) {
     var t = e.target.closest('button');
     if (!t) return;
-    if (t.hasAttribute('data-f')) { st.F = t.getAttribute('data-f'); render(); }
+    if (t.hasAttribute('data-f')) {
+      var nf = t.getAttribute('data-f');
+      if (nf !== st.F) { st.L = E.remapLocks(st.F, nf, st.L); st.F = nf; render(); }
+    }
+    else if (t.hasAttribute('data-pick')) { openPicker(+t.getAttribute('data-pick')); }
+    else if (t.hasAttribute('data-choose')) { var c = t.getAttribute('data-choose').split(':'); choose(+c[0], +c[1]); }
+    else if (t.hasAttribute('data-unlock')) { delete st.L[+t.getAttribute('data-unlock')]; render(); toast('Vaga de volta ao calculado'); }
+    else if (t.id === 'unlock-all') { st.L = {}; render(); toast('XI de volta ao calculado'); }
+    else if (t.id === 'picker-close') { closePicker(); }
     else if (t.hasAttribute('data-pre')) {
       pre = t.getAttribute('data-pre');
       st.W = Object.assign({}, E.PRE[pre].w); st.X = Object.assign({}, E.PRE[pre].x); render();

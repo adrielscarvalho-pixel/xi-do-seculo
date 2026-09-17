@@ -17,6 +17,7 @@ concurrency:
 
 jobs:
   test:
+    name: Testes de dados e cálculo
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -25,8 +26,28 @@ jobs:
           node-version: 22
       - run: npm test
 
+  e2e:
+    name: Testes no navegador
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
   deploy:
-    needs: test
+    name: Publicar no Firebase
+    needs: [test, e2e]
     runs-on: ubuntu-latest
     # Pull requests de forks não têm acesso aos segredos.
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository

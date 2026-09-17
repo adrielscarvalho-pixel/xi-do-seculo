@@ -165,7 +165,7 @@ test('endereço: estado padrão não gera hash', () => {
 test('endereço: ida e volta preserva formação e pesos', () => {
   for (const pre of Object.values(E.PRE)) {
     for (const F of FORMATIONS) {
-      const st = { F, W: { ...pre.w }, X: { ...pre.x } };
+      const st = { F, W: { ...pre.w }, X: { ...pre.x }, L: {} };
       const back = E.decodeState('#' + E.encodeState(st));
       assert.deepEqual(back, st);
     }
@@ -187,4 +187,80 @@ test('texto de compartilhamento lista os 11 jogadores', () => {
   const r = E.compute(E.DEF, E.DX, '4-2-3-1');
   const text = E.lineupText(r.xi, '4-2-3-1');
   for (const s of r.xi) assert.ok(text.includes(s.p.n), s.p.n);
+});
+
+const byName = n => E.PLAYERS.find(p => p.n === n);
+
+test('escolhas: identificadores de jogador no link são únicos', () => {
+  assert.equal(new Set(E.PLAYERS.map(p => p.slug)).size, E.PLAYERS.length);
+  E.PLAYERS.forEach(p => assert.match(p.slug, /^[a-z0-9]+$/, p.n));
+});
+
+test('escolhas: jogador fixado fica na vaga e o resto do time se recalcula', () => {
+  const kroos = byName('Kroos');
+  const auto = E.compute(E.DEF, E.DX, '4-3-3');
+  const slot = auto.xi.findIndex(s => s.pos === 'MC');
+  const r = E.compute(E.DEF, E.DX, '4-3-3', { [slot]: kroos.id });
+  assert.equal(r.xi[slot].p.n, 'Kroos');
+  assert.equal(r.xi[slot].locked, true);
+  assert.equal(r.xi.filter(s => s.locked).length, 1);
+  assert.equal(new Set(r.xi.map(s => s.p.id)).size, 11);
+  assert.ok(r.inXI.has(kroos.id));
+});
+
+test('escolhas: fixar quem já está no time em outra vaga não duplica o jogador', () => {
+  const auto = E.compute(E.DEF, E.DX, '4-3-3');
+  const messiSlot = auto.xi.findIndex(s => s.p.n === 'Messi');
+  const ca = auto.xi.findIndex(s => s.pos === 'CA');
+  const r = E.compute(E.DEF, E.DX, '4-3-3', { [ca]: byName('Messi').id });
+  assert.equal(r.xi[ca].p.n, 'Messi');
+  assert.equal(r.xi[ca].adapt, true);
+  assert.notEqual(r.xi[messiSlot].p.n, 'Messi');
+  assert.equal(new Set(r.xi.map(s => s.p.id)).size, 11);
+});
+
+test('escolhas: vaga inválida, posição errada e repetição são descartadas', () => {
+  const gk = E.FM['4-3-3'].findIndex(s => s[0] === 'GOL');
+  const messi = byName('Messi').id;
+  assert.deepEqual(E.cleanLocks('4-3-3', { [gk]: messi }), {});
+  assert.deepEqual(E.cleanLocks('4-3-3', { 42: messi }), {});
+  assert.deepEqual(E.cleanLocks('4-3-3', { 1: messi, 2: messi }), { 1: messi });
+  assert.deepEqual(E.cleanLocks('4-3-3', { 1: 9999 }), {});
+});
+
+test('escolhas: vão para o link e voltam iguais, e links quebrados são ignorados', () => {
+  const st = { F: '4-2-3-1', W: { ...E.DEF }, X: { ...E.DX }, L: { 2: byName('Kaká').id, 10: byName('Buffon').id } };
+  const hash = E.encodeState(st);
+  assert.match(hash, /_2.kaka-10.buffon$/);
+  assert.deepEqual(E.decodeState('#' + hash), st);
+  assert.notEqual(E.encodeState({ F: '4-3-3', W: { ...E.DEF }, X: { ...E.DX }, L: { 1: byName('Messi').id } }), '');
+  const broken = E.decodeState('#433_100-50-35-15-80-30-15-50-30-15_60-1-1_1.naoexiste-x-10.messi-99.kaka');
+  assert.deepEqual(broken.L, {});
+});
+
+test('escolhas: trocar a formação mantém quem ainda tem vaga na mesma posição', () => {
+  const from = '4-3-3', to = '4-4-2';
+  const mc = E.FM[from].findIndex(s => s[0] === 'MC');
+  const ca = E.FM[from].findIndex(s => s[0] === 'CA');
+  const gk = E.FM[from].findIndex(s => s[0] === 'GOL');
+  const locks = { [mc]: byName('Kroos').id, [ca]: byName('Haaland').id, [gk]: byName('Buffon').id };
+  const out = E.remapLocks(from, to, locks);
+  const names = Object.entries(out).map(([i, id]) => [E.FM[to][i][0], E.PLAYERS[id].n]).sort();
+  assert.deepEqual(names, [['CA', 'Haaland'], ['GOL', 'Buffon'], ['MC', 'Kroos']]);
+  const noMei = E.remapLocks('4-2-3-1', '4-3-3', { [E.FM['4-2-3-1'].findIndex(s => s[0] === 'MEI')]: byName('Kaká').id });
+  assert.deepEqual(noMei, {});
+});
+
+test('escolhas: candidatos são aptos à posição, com desconto para adaptados', () => {
+  const r = E.compute(E.DEF, E.DX, '4-3-3');
+  const ca = r.xi.findIndex(s => s.pos === 'CA');
+  const list = E.candidates(r, ca);
+  assert.ok(list.length > 10);
+  list.forEach(c => assert.ok(E.canPlay(c.p, 'CA')));
+  for (let i = 1; i < list.length; i++) assert.ok(list[i - 1].v >= list[i].v);
+  const messi = list.find(c => c.p.n === 'Messi');
+  assert.equal(messi.adapt, true);
+  assert.equal(messi.elsewhere, true);
+  assert.ok(Math.abs(messi.v - messi.p.t * E.ADAPT) < 1e-9);
+  assert.equal(list.filter(c => c.current).length, 1);
 });

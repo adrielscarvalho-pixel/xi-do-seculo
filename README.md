@@ -11,7 +11,8 @@ pode ser instalado como app pelo celular e se adapta ao modo escuro do sistema.
 
 - Monta o XI em 4-3-3, 4-2-3-1 ou 4-4-2, com jogadores adaptados quando superam a posição.
 - Deixa ajustar o peso de cada título e prêmio, com seis combinações prontas.
-- Guarda a escalação e os pesos no endereço, então o link compartilhado abre o mesmo time.
+- Deixa trocar qualquer jogador do XI à mão, com a lista de opções da posição e o quanto cada uma vale.
+- Guarda formação, pesos e escolhas no endereço, então o link compartilhado abre o mesmo time.
 - Gera uma imagem 1080×1350 do time para Instagram, WhatsApp e stories.
 - Mostra o ranking dos 97 jogadores com a conta detalhada de cada um.
 
@@ -20,13 +21,16 @@ pode ser instalado como app pelo celular e se adapta ao modo escuro do sistema.
 ```
 public/                 o site pronto (é isso que vai para o ar)
   index.html            página, estilos e metodologia
+  fonts/                fontes Archivo e Big Shoulders (licença OFL), servidas pelo próprio site
   js/engine.js          dados e cálculo, sem acesso à tela (testável no Node)
   js/app.js             interface: campo, ranking, pesos, compartilhar, imagem
   sw.js                 cache para funcionar offline
   404.html              página de erro
   robots.txt, sitemap.xml
   manifest.webmanifest, og.png, icon-*
-tests/                  testes de dados, cálculo e estrutura do site
+tests/                  testes de dados, cálculo e estrutura do site (Node)
+e2e/                    testes no navegador com Playwright, incluindo acessibilidade
+scripts/serve.mjs       servidor local sem dependências
 scripts/prepare-deploy.mjs  preenche endereço e versão antes de publicar
 make_assets.py          regera ícones e a imagem de prévia (opcional)
 firebase.json           hospedagem, cache e cabeçalhos de segurança
@@ -37,6 +41,7 @@ firebase.json           hospedagem, cache e cabeçalhos de segurança
 Precisa de Node 22 ou mais novo.
 
 ```bash
+npm install
 npm run dev
 ```
 
@@ -48,6 +53,13 @@ Abre em http://localhost:8080. O modo offline só liga em HTTPS, então não apa
 npm test
 ```
 
+Os testes no navegador precisam do Chromium do Playwright na primeira vez:
+
+```bash
+npx playwright install chromium
+npm run test:e2e
+```
+
 Os testes conferem:
 
 - **Dados.** Cada liga tem 26 temporadas e a hegemonia bate com os campeões anteriores. Clubes, posições e seleções existem.
@@ -55,10 +67,12 @@ Os testes conferem:
 - **Metodologia.** Os exemplos do texto, como o Bayern 2018/19 valendo 4,2 pontos, batem com a conta de verdade.
 - **Imagem de prévia.** Os pontos desenhados em `og.png` são os do time padrão. Se mudar os dados, o teste avisa para regerar a imagem.
 - **Site.** Arquivos citados existem, não há script inline e os cabeçalhos de segurança estão configurados.
+- **Navegador.** Em desktop e celular: carregamento sem erros, sem rolagem horizontal, formação, pesos, busca, troca de jogador, link compartilhado, imagem e página 404.
+- **Acessibilidade.** O axe-core confere as regras WCAG 2.2 A e AA no modo claro e no escuro, inclusive no painel de troca.
 
 ## Publicar
 
-A cada `push` na branch `main`, o GitHub Actions roda os testes e publica se passarem.
+A cada `push` na branch `main`, o GitHub Actions roda os dois conjuntos de testes e publica só se todos passarem.
 Cada pull request ganha uma prévia própria no Firebase, válida por 7 dias.
 
 Antes do primeiro envio, cadastre dois segredos em

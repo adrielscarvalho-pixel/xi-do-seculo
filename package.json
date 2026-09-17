@@ -8,8 +8,14 @@
   },
   "scripts": {
     "test": "node --test \"tests/*.test.mjs\"",
-    "dev": "npx --yes serve@14 public -l 8080",
+    "test:e2e": "playwright test",
+    "test:all": "npm test && npm run test:e2e",
+    "dev": "node scripts/serve.mjs 8080",
     "prepare-deploy": "node scripts/prepare-deploy.mjs",
     "deploy": "firebase deploy --only hosting"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0"
   }
 }

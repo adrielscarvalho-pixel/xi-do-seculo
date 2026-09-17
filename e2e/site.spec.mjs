@@ -154,6 +154,8 @@ for (const colorScheme of ['light', 'dark']) test(`acessibilidade (${colorScheme
 
   await page.locator('[data-pick]').click();
   await expect(page.getByRole('dialog')).toBeVisible();
+  // Espera a animação de entrada: durante ela a caixa ainda está translúcida e o axe acusa contraste.
+  await page.getByRole('dialog').evaluate(el => Promise.all(el.getAnimations().map(a => a.finished)));
   const dialogScan = await new AxeBuilder({ page }).include('#picker').withTags(tags).analyze();
   expect(dialogScan.violations.map(v => `${v.id}: ${v.nodes.length}`)).toEqual([]);
 });
